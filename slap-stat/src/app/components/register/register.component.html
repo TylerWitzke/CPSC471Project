@@ -28,10 +28,15 @@
             <input  matInput  placeholder="Password"  name="password" required>
          </mat-form-field>
         </form>
+        <!--Add buttons for coaches and players-->
         <mat-radio-group aria-label="Coach or Player">
             <mat-radio-button value="Coach">Coach</mat-radio-button>
-            <mat-radio-button value="Player">Player</mat-radio-button>
+            <mat-radio-button (click)="togglePlayer()" value="Player">Player</mat-radio-button>
           </mat-radio-group>
+          <!--This will only show if player is selected-->
+          <div *ngIf = "getPlayer()">
+            <p>What up bitches</p>
+          </div>    
      </mat-card-content>
      <mat-card-actions>
         <!--REGISTER BUTTON HERE-->

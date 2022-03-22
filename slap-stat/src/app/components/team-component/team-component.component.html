@@ -1,1 +1,30 @@
-<p>team-component works!</p>
+<mat-toolbar>
+    <span>Registration Team</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+     <mat-card-content>
+        <form class="my-form">
+          <!--Add users first name-->
+          <mat-form-field class="full-width">
+            <mat-label>Team Name</mat-label>
+            <input  matInput  placeholder="Team Name"  name="tname"  required>
+         </mat-form-field>
+         <br>
+         <!--Add users last name-->
+         <mat-form-field class="full-width">
+            <mat-label>League</mat-label>
+            <input  matInput  placeholder="League" name="lname"  required>
+         </mat-form-field>
+         <br>
+         <!--Add users Email-->
+         <mat-form-field class="full-width">
+            <mat-label>Division</mat-label>
+            <input  matInput  placeholder="Division" name="division" required>
+         </mat-form-field>
+         <br>
+        </form>
+     </mat-card-content>
+     <mat-card-actions>
+        <!--REGISTER BUTTON HERE-->
+     </mat-card-actions>
+  </mat-card>

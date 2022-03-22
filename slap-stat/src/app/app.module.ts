@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RegistrationComponentComponent } from './components/registration-component/registration.component';
+import { RegisterComponent } from './components/register/register.component';
 import { LoginComponentComponent } from './components/login-component/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from  './material.module';
@@ -15,7 +15,7 @@ import { TeamComponentComponent } from './components/team-component/team-compone
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegistrationComponentComponent,
+    RegisterComponent,
     LoginComponentComponent,
     TeamComponentComponent
   ],
@@ -26,7 +26,7 @@ import { TeamComponentComponent } from './components/team-component/team-compone
     MyMaterialModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/', pathMatch: 'full' },
-      { path: 'register', component: RegistrationComponentComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponentComponent },
       { path: 'register-team', component: TeamComponentComponent }
     ]),

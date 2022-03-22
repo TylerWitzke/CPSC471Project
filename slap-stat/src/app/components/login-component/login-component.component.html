@@ -1,1 +1,28 @@
-<p>login-component works!</p>
+<mat-toolbar>
+    <span>Login</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+     <mat-card-content>
+        <form class="my-form">
+            <mat-radio-group aria-label="Coach or Player">
+                <mat-radio-button value="Coach">Coach</mat-radio-button>
+                <mat-radio-button value="Player">Player</mat-radio-button>
+              </mat-radio-group>
+              <br>
+         <!--Add users Email-->
+         <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input  matInput  placeholder="Email" name="email" required>
+         </mat-form-field>
+         <br>
+         <!--Add users password-->
+         <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input  matInput  placeholder="Password"  name="password" required>
+         </mat-form-field>
+        </form>
+     </mat-card-content>
+     <mat-card-actions>
+        <!--REGISTER BUTTON HERE-->
+     </mat-card-actions>
+  </mat-card>
