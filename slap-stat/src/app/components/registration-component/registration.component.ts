@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration-component.component.css']
 })
 export class RegistrationComponentComponent implements OnInit {
-
+  gender: string = "Gender";
   constructor() { }
 
   ngOnInit(): void {
