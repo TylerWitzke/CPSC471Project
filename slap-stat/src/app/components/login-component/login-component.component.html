@@ -4,22 +4,27 @@
   <mat-card class="my-card">
      <mat-card-content>
         <form class="my-form">
-            <mat-radio-group aria-label="Coach or Player">
-                <mat-radio-button value="Coach">Coach</mat-radio-button>
-                <mat-radio-button value="Player">Player</mat-radio-button>
+            <mat-radio-group aria-label="Coach or Player" >
+                <mat-radio-button (click) = "toggleCoachMode()" value="Coach">Coach</mat-radio-button>
+                <mat-radio-button (click) = "togglePlayerMode()" value="Player">Player</mat-radio-button>
               </mat-radio-group>
               <br>
          <!--Add users Email-->
+         <div style = "margin-top: 20px;">
          <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
-            <input  matInput  placeholder="Email" name="email" required>
+            <input  matInput  placeholder="Email" name="email" type = "text" required [(ngModel)]="email" >
          </mat-form-field>
          <br>
          <!--Add users password-->
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password"  name="password" required>
+            <input  matInput  placeholder="Password"  name="password" type = "password" required [(ngModel)]= "password">
          </mat-form-field>
+      </div>
+      <div style = "margin-top: 10px;">
+         <button (click) = "login()"  mat-raised-button color="primary">login</button>
+      </div>
         </form>
      </mat-card-content>
      <mat-card-actions>
