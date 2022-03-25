@@ -61,11 +61,13 @@
          <br>
          <!--Add buttons for position-->
         <mat-radio-group aria-label="Position of Player">
-         <mat-radio-button  value="Left Wing">LW</mat-radio-button>
-         <mat-radio-button  value="Centre">C</mat-radio-button>
-         <mat-radio-button  value="Right Wing">RW</mat-radio-button>
-         <mat-radio-button  value="Left Defence">LD</mat-radio-button>
-         <mat-radio-button  value="Right Defence">RD</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="LW">
+            LW
+         </mat-radio-button>
+         <mat-radio-button  value="C">C</mat-radio-button>
+         <mat-radio-button  value="RW">RW</mat-radio-button>
+         <mat-radio-button  value="LD">LD</mat-radio-button>
+         <mat-radio-button  value="RD">RD</mat-radio-button>
        </mat-radio-group>
           </div>
           <div style = "margin-top: 10px;">

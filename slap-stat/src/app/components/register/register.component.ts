@@ -1,4 +1,6 @@
+import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import { Component, OnInit } from '@angular/core';
+import { MatRadioChange } from '@angular/material/radio';
 import { Player } from 'src/app/app.component';
 
 @Component({
@@ -40,14 +42,22 @@ export class RegisterComponent implements OnInit {
 
     //This is what will send the player to the destination
     registerPerson(){
-      console.log(this.editPlayer.first_name);
+      console.log(this.editPlayer.position);
+    }
+
+    //This function will switch the position of the player based on and event
+    switchPlayer(event: MatRadioChange)
+    {
+      this.editPlayer.position = event.value;
     }
 
     //Return the player function
     getPlayer() :boolean
     {
       console.log("This worked to");
-    return this.player;
+      return this.player;
     }
+
+
 
 }
