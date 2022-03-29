@@ -30,18 +30,23 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  //This toggles the boolean for player
-  togglePlayerTrue(){
-    this.player = true;
-  }
 
-    //This toggles the boolean for player
-    togglePlayerFalse(){
-      this.player = false;
-    }
+  //This toggles whether its a player or a coach
+  togglePlayer(event: MatRadioChange, isPlay: boolean)
+  {
+    this.player = isPlay;
+  }
 
     //This is what will send the player to the destination
     registerPerson(){
+      console.log(this.editPlayer.first_name);
+      console.log(this.editPlayer.last_name);
+      console.log(this.editPlayer.email);
+      console.log(this.editPlayer.password);
+      console.log(this.editPlayer.height);
+      console.log(this.editPlayer.weight);
+      console.log(this.editPlayer.handness);
+      console.log(this.editPlayer.number);
       console.log(this.editPlayer.position);
     }
 
@@ -51,10 +56,15 @@ export class RegisterComponent implements OnInit {
       this.editPlayer.position = event.value;
     }
 
+    //This function will switch the handness of the player
+    switchHandness(event: MatRadioChange)
+    {
+      this.editPlayer.handness = event.value;
+    }
+
     //Return the player function
     getPlayer() :boolean
     {
-      console.log("This worked to");
       return this.player;
     }
 

@@ -25,13 +25,13 @@
          <!--Add users password-->
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password"  name="password" [(ngModel)]="editPlayer.password" required>
+            <input  matInput  placeholder="Password"  name="password" type = password [(ngModel)]="editPlayer.password" required>
          </mat-form-field>
         </form>
         <!--Add buttons for coaches and players-->
         <mat-radio-group aria-label="Coach or Player">
-            <mat-radio-button (click)="togglePlayerFalse()" value="Coach">Coach</mat-radio-button>
-            <mat-radio-button (click)="togglePlayerTrue()" value="Player">Player</mat-radio-button>
+            <mat-radio-button (change)="togglePlayer($event, false)" value="Coach">Coach</mat-radio-button>
+            <mat-radio-button (change)="togglePlayer($event, true)" value="Player">Player</mat-radio-button>
           </mat-radio-group>
           <!--This will only show if player is selected-->
           <div *ngIf = "getPlayer()">
@@ -49,25 +49,23 @@
          <br>
          <!--Add buttons for left and right handed-->
         <mat-radio-group aria-label="Left or Right Handed">
-         <mat-radio-button  value="LeftHanded">Left Handed</mat-radio-button>
-         <mat-radio-button  value="RightHanded">Right Handed</mat-radio-button>
+         <mat-radio-button (change)="switchHandness($event)"  value="L">Left Handed</mat-radio-button>
+         <mat-radio-button (change)="switchHandness($event)"  value="R">Right Handed</mat-radio-button>
        </mat-radio-group>
          <br>
          <!--Add users height in cm-->
          <mat-form-field class="full-width">
             <mat-label>Number</mat-label>
-               <input  matInput  placeholder="Number"  name="number" [(ngModel)]="editPlayer.height" required>
+               <input  matInput  placeholder="Number"  name="number" [(ngModel)]="editPlayer.number" required>
          </mat-form-field>
          <br>
          <!--Add buttons for position-->
         <mat-radio-group aria-label="Position of Player">
-         <mat-radio-button  (change)="switchPlayer($event)" value="LW">
-            LW
-         </mat-radio-button>
-         <mat-radio-button  value="C">C</mat-radio-button>
-         <mat-radio-button  value="RW">RW</mat-radio-button>
-         <mat-radio-button  value="LD">LD</mat-radio-button>
-         <mat-radio-button  value="RD">RD</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="LW">LW</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="C">C</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="RW">RW</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="LD">LD</mat-radio-button>
+         <mat-radio-button  (change)="switchPlayer($event)" value="RD">RD</mat-radio-button>
        </mat-radio-group>
           </div>
           <div style = "margin-top: 10px;">
