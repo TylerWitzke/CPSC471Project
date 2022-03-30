@@ -9,7 +9,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponentComponent } from './components/login-component/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from  './material.module';
+import {MatTableModule} from '@angular/material/table';
 import { TeamComponentComponent } from './components/team-component/team-component.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
   declarations: [
@@ -17,18 +19,21 @@ import { TeamComponentComponent } from './components/team-component/team-compone
     HeaderComponent,
     RegisterComponent,
     LoginComponentComponent,
-    TeamComponentComponent
+    TeamComponentComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatTableModule,
     MyMaterialModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponentComponent },
-      { path: 'register-team', component: TeamComponentComponent }
+      { path: 'register-team', component: TeamComponentComponent },
+      { path: 'game', component: GameComponent}
     ]),
   ],
   providers: [],
