@@ -12,6 +12,7 @@ import { MyMaterialModule } from  './material.module';
 import {MatTableModule} from '@angular/material/table';
 import { TeamComponentComponent } from './components/team-component/team-component.component';
 import { GameComponent } from './components/game/game.component';
+import { PlayerHomeComponent } from './components/player-home/player-home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { GameComponent } from './components/game/game.component';
     RegisterComponent,
     LoginComponentComponent,
     TeamComponentComponent,
-    GameComponent
+    GameComponent,
+    PlayerHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { GameComponent } from './components/game/game.component';
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponentComponent },
       { path: 'register-team', component: TeamComponentComponent },
-      { path: 'game', component: GameComponent}
+      { path: 'game', component: GameComponent},
+      { path: 'playerhome', component: PlayerHomeComponent}
     ]),
   ],
   providers: [],

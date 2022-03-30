@@ -20,6 +20,7 @@ export class LoginComponentComponent implements OnInit {
   toggleCoachMode(){
     this.mode = 'Coach';
   }
+  
   login(){
     console.log('login code');
   }
