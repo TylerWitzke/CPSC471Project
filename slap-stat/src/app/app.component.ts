@@ -11,6 +11,13 @@ export interface Player {
   number: number;
   position: string;
 }
+export interface Team{
+  team_id: number,
+  team_record: string,
+  name: string,
+  league: string,
+  division: string
+}
 
 @Component({
   selector: 'app-root',

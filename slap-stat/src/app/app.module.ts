@@ -10,6 +10,7 @@ import { LoginComponentComponent } from './components/login-component/login.comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from  './material.module';
 import { TeamComponentComponent } from './components/team-component/team-component.component';
+import { PlayerHomeComponent } from './components/player-home/player-home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TeamComponentComponent } from './components/team-component/team-compone
     HeaderComponent,
     RegisterComponent,
     LoginComponentComponent,
-    TeamComponentComponent
+    TeamComponentComponent,
+    PlayerHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { TeamComponentComponent } from './components/team-component/team-compone
       { path: '', redirectTo: '/', pathMatch: 'full' },
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponentComponent },
-      { path: 'register-team', component: TeamComponentComponent }
+      { path: 'register-team', component: TeamComponentComponent },
+      { path: 'playerhome', component: PlayerHomeComponent}
     ]),
   ],
   providers: [],
