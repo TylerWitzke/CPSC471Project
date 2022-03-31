@@ -18,6 +18,12 @@ export interface Team{
   league: string,
   division: string
 }
+export interface Coach{
+  team_id: number,
+  first_name: string,
+  last_name: string,
+  
+}
 
 @Component({
   selector: 'app-root',

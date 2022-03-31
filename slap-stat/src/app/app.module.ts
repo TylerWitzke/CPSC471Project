@@ -13,6 +13,7 @@ import {MatTableModule} from '@angular/material/table';
 import { TeamComponentComponent } from './components/team-component/team-component.component';
 import { GameComponent } from './components/game/game.component';
 import { PlayerHomeComponent } from './components/player-home/player-home.component';
+import { CoachHomeComponent } from './components/coach-home/coach-home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PlayerHomeComponent } from './components/player-home/player-home.compon
     LoginComponentComponent,
     TeamComponentComponent,
     GameComponent,
-    PlayerHomeComponent
+    PlayerHomeComponent,
+    CoachHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { PlayerHomeComponent } from './components/player-home/player-home.compon
       { path: 'login', component: LoginComponentComponent },
       { path: 'register-team', component: TeamComponentComponent },
       { path: 'game', component: GameComponent},
-      { path: 'playerhome', component: PlayerHomeComponent}
+      { path: 'playerhome', component: PlayerHomeComponent},
+      { path: 'coachhome', component: CoachHomeComponent}
     ]),
   ],
   providers: [],
