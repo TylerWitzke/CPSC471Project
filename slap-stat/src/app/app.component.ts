@@ -10,6 +10,7 @@ export interface Player {
   handness: string;
   number: number;
   position: string;
+  team_id: number;
 }
 export interface Team{
   team_id: number,
@@ -20,8 +21,11 @@ export interface Team{
 }
 export interface Coach{
   team_id: number,
+  email: string,
+  password: string,
   first_name: string,
   last_name: string,
+  
   
 }
 

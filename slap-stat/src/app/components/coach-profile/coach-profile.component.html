@@ -1,0 +1,36 @@
+<div class="profile">
+    <h1 class="profile-title"><u>{{coach.first_name}} {{coach.last_name}}</u></h1>
+    </div>
+    <div class = "profile-info">
+    <h3>Email: {{coach.email}}</h3>
+</div>
+<div>
+    <button (click) = "onEdit()"  mat-raised-button color="primary">{{editToggleString}}</button>
+    <button (click) = "onDelete()" style = "margin-left: 10px;" mat-raised-button color="warn">Delete Profile</button>
+</div>
+<div style="margin-top:10px;" *ngIf = "editMode">
+    <div>
+    <mat-form-field class = "update-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input appearance="fill" matInput placeholder="email" type="text" [(ngModel)]="editCoach.email">
+    </mat-form-field>
+    <mat-form-field class = "update-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input appearance="fill" matInput placeholder="password" type="password" [(ngModel)]="editCoach.password">
+    </mat-form-field> 
+    <mat-form-field class = "update-field" appearance="fill"> 
+      <mat-label>First Name</mat-label>
+      <input appearance="fill" matInput placeholder="first name" type="text" [(ngModel)]="editCoach.first_name">
+    </mat-form-field>
+    <mat-form-field class = "update-field" appearance="fill"> 
+        <mat-label>Last Name</mat-label>
+        <input appearance="fill" matInput placeholder="first name" type="text" [(ngModel)]="editCoach.last_name">
+      </mat-form-field>
+    </div>
+    
+    <div>
+        <button (click) = "editProfile()"  mat-raised-button color="primary">Submit</button>
+    </div>
+    
+  </div>
+    

@@ -17,7 +17,8 @@ export class PlayerHomeComponent implements OnInit {
     weight: 0,
     handness: '',
     number: 0,
-    position: ''
+    position: '',
+    team_id: 0
   }
   team: Team = {
     team_id: 1,

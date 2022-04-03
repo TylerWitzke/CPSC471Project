@@ -11,7 +11,9 @@ export class CoachHomeComponent implements OnInit {
   coach: Coach = {
     team_id: 0,
     first_name: '',
-    last_name: ''
+    last_name: '',
+    email: '',
+    password: ''
   }
   team: Team = {
     team_id: 1,

@@ -1,0 +1,52 @@
+
+    
+<div class="profile">
+    <h1 class="profile-title"><u>{{player.first_name}} {{player.last_name}} #{{player.number}}</u></h1>
+    </div>
+    <div class = "profile-info">
+    <h3>Email: {{player.email}}</h3>
+    <h3>Height: {{player.height}}</h3>
+    <h3>Weight: {{player.weight}}</h3>
+    <h3>Position: {{player.height}}</h3>
+    <h3>Hand: {{player.handness}}</h3>
+</div>
+<div>
+    <button (click) = "onEdit()"  mat-raised-button color="primary">{{editToggleString}}</button>
+    <button (click) = "onDelete()" style = "margin-left: 10px;" mat-raised-button color="warn">Delete Profile</button>
+  </div>
+  
+  <div style="margin-top:10px;" *ngIf = "editMode">
+    <div>
+    <mat-form-field class = "update-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input appearance="fill" matInput placeholder="email" type="text" [(ngModel)]="editplayer.email">
+    </mat-form-field>
+    <mat-form-field class = "update-field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input appearance="fill" matInput placeholder="password" type="text" [(ngModel)]="editplayer.password">
+    </mat-form-field> 
+    <mat-form-field class = "update-field" appearance="fill"> 
+      <mat-label>First Name</mat-label>
+      <input appearance="fill" matInput placeholder="first name" type="text" [(ngModel)]="editplayer.first_name">
+    </mat-form-field>
+    </div>
+    <div>
+    <mat-form-field class = "update-field" appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input appearance="fill" matInput placeholder="last name" type="text" [(ngModel)]="editplayer.last_name">
+    </mat-form-field>
+    <mat-form-field class = "update-field" appearance="fill">
+        <mat-label>Height</mat-label>
+        <input appearance="fill" matInput placeholder="last name" type="text" [(ngModel)]="editplayer.height">
+      </mat-form-field>
+    <mat-form-field class = "update-field" appearance="fill">
+        <mat-label>Weight</mat-label>
+        <input appearance="fill" matInput placeholder="last name" type="text" [(ngModel)]="editplayer.weight">
+    </mat-form-field>
+    </div>
+    <div>
+        <button (click) = "editProfile()"  mat-raised-button color="primary">Submit</button>
+    </div>
+    
+  </div>
+    

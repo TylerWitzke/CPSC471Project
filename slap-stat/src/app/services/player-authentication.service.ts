@@ -13,8 +13,8 @@ export class PlayerAuthenticationService {
     weight: 0,
     handness: '',
     number: 0,
-    position: ''
-
+    position: '',
+    team_id: 0
   }
   constructor() { }
 
@@ -28,6 +28,7 @@ export class PlayerAuthenticationService {
     this.player.handness = 'R';
     this.player.number = 69;
     this.player.position = 'RW'
+    
   }
   getProfile():Player{
     return this.player;

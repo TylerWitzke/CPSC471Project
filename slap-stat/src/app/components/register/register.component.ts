@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   weight: 0,
   handness: '',
   number: 0,
-  position: ''
+  position: '',
+  team_id: 0
   }
 
   constructor() { }

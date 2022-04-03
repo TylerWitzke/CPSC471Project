@@ -14,6 +14,8 @@ import { TeamComponentComponent } from './components/team-component/team-compone
 import { GameComponent } from './components/game/game.component';
 import { PlayerHomeComponent } from './components/player-home/player-home.component';
 import { CoachHomeComponent } from './components/coach-home/coach-home.component';
+import { PlayerProfileComponent } from './components/player-profile/player-profile.component';
+import { CoachProfileComponent } from './components/coach-profile/coach-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { CoachHomeComponent } from './components/coach-home/coach-home.component
     TeamComponentComponent,
     GameComponent,
     PlayerHomeComponent,
-    CoachHomeComponent
+    CoachHomeComponent,
+    PlayerProfileComponent,
+    CoachProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { CoachHomeComponent } from './components/coach-home/coach-home.component
       { path: 'register-team', component: TeamComponentComponent },
       { path: 'game', component: GameComponent},
       { path: 'playerhome', component: PlayerHomeComponent},
-      { path: 'coachhome', component: CoachHomeComponent}
+      { path: 'coachhome', component: CoachHomeComponent},
+      { path: 'playerprofile', component: PlayerProfileComponent},
+      { path: 'coachprofile', component: CoachProfileComponent}
     ]),
   ],
   providers: [],
