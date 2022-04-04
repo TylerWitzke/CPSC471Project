@@ -50,7 +50,7 @@ class Player_Stats(models.Model):
     Shots = models.PositiveIntegerField()
     Hits = models.PositiveIntegerField()
     F_wins = models.PositiveIntegerField()
-    F_losses = models.CharField(max_length=1)
+    F_losses = models.PositiveIntegerField()
 
 #Create Shots Model
 class Shot(models.Model):
@@ -94,6 +94,6 @@ class Takes(models.Model):
 
 #Create Team Model
 class Admin(models.Model):
-    Email = models.AutoField(primary_key=True, max_length=100)
+    Email = models.CharField(primary_key=True, max_length=100)
     Password = models.CharField(max_length=100)
 

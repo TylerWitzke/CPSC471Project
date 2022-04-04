@@ -5,6 +5,10 @@ import sys
 
 
 def main():
+     # Override default port for `runserver` command
+    from django.core.management.commands.runserver import Command as runserver
+    runserver.default_port = "6969"
+
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SlapStatAPI.settings')
     try:
@@ -15,6 +19,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+
     execute_from_command_line(sys.argv)
 
 
