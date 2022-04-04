@@ -16,6 +16,9 @@ import { PlayerHomeComponent } from './components/player-home/player-home.compon
 import { CoachHomeComponent } from './components/coach-home/coach-home.component';
 import { PlayerProfileComponent } from './components/player-profile/player-profile.component';
 import { CoachProfileComponent } from './components/coach-profile/coach-profile.component';
+import { CoachAuthenticationService } from './services/coach-authentication.service';
+import { PlayerAuthenticationService } from './services/player-authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { CoachProfileComponent } from './components/coach-profile/coach-profile.
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
+    HttpClientModule,
     MyMaterialModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -48,7 +52,7 @@ import { CoachProfileComponent } from './components/coach-profile/coach-profile.
       { path: 'coachprofile', component: CoachProfileComponent}
     ]),
   ],
-  providers: [],
+  providers: [PlayerAuthenticationService, CoachAuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

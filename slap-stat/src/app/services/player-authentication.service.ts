@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../app.component';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerAuthenticationService {
+  readonly APIUrl = "http://127.0.0.1:6969/";
   player: Player = {
     first_name: '',
     last_name: '',
@@ -16,7 +20,7 @@ export class PlayerAuthenticationService {
     position: '',
     team_id: 0
   }
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   signIn(email: string, password: string): void{
     this.player.email = email;
@@ -33,4 +37,21 @@ export class PlayerAuthenticationService {
   getProfile():Player{
     return this.player;
   }
+
+  getPlayer(email:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl +'player/'+email);
+  }
+
+  addPlayer(val:any){
+    return this.http.post(this.APIUrl + 'player/',val);
+  }
+
+  putPlayer(val:any){
+    return this.http.put(this.APIUrl + 'player/',val);
+  }
+
+  deletePlayer(val:any){
+    return this.http.delete(this.APIUrl + 'player/'+val);
+  }
 }
+
