@@ -30,17 +30,11 @@ export class LoginComponentComponent implements OnInit {
     
       if(this.mode === 'Player'){
         this.playerAuth.signIn(this.email,this.password);
-        if(this.playerAuth.signedIn){
-          console.log('fuck you');
-          this.valid = true;
-          document.getElementsByTagName('button')[0].click();
-        }
-        else{
-          console.log('false you')
-          this.fail = true;
-          this.email = '';
-          this.password = '';
-        }
+        console.log('false you')
+        this.fail = true;
+        this.email = '';
+        this.password = '';
+        
       }
     
   }

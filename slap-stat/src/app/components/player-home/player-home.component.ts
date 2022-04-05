@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
 import { Player } from 'src/app/app.component';
 import { Team } from 'src/app/app.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-player-home',
   templateUrl: './player-home.component.html',
@@ -39,11 +40,14 @@ export class PlayerHomeComponent implements OnInit {
 
   
 
-  constructor(private auth: PlayerAuthenticationService) { }
+  constructor(private auth: PlayerAuthenticationService,private router:Router) { }
 
   ngOnInit(): void {
     if(this.auth.signedIn){
       this.player = this.auth.getProfile();
+    }
+    else{
+      this.router.navigate(['/'])
     }
     // this.getGuy('twitzke6@outlook.com');
   }
