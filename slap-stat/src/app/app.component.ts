@@ -25,10 +25,7 @@ export interface Coach{
   password: string,
   first_name: string,
   last_name: string,
-  
-  
 }
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
