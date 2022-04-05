@@ -49,7 +49,7 @@ class ShotSerializer(serializers.ModelSerializer):
 class Team_StatsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team_Stats
-        fields = ('Team_ID', 'Wins', 'Losses', 'PIMS', 'Shots_against')
+        fields = ('Team_ID', 'Wins', 'Losses', 'PIMS', 'Shots', 'Shots_against')
 
 
 class Game_SheetSerializer(serializers.ModelSerializer):

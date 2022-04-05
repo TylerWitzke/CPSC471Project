@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
     this.player = isPlay;
   }
 
-    //This is what will send the player to the destination
+    //This will register a person in the database
     registerPerson(){
       //First register a personnal into database
       this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
@@ -81,10 +81,12 @@ export class RegisterComponent implements OnInit {
 
     }
 
+    //Upload either a coach or a player depending on result
     uploadOther(inDatabase: boolean){
       console.log(inDatabase);
       if(inDatabase) return;
 
+      //If player, add player
       if(this.player){
         this.playerParam.Email = this.personnalParam.Email;
         this.playerParam.Team_ID = this.personnalParam.Team_ID;
@@ -93,7 +95,7 @@ export class RegisterComponent implements OnInit {
             this.uploadPlayerStats();
           }
         });
-      } else {
+      } else { //Else register coach
         this.coachParam.Email = this.personnalParam.Email;
         this.coachParam.Team_ID = this.personnalParam.Team_ID;
         //First register a personnal into database
@@ -105,6 +107,7 @@ export class RegisterComponent implements OnInit {
       }
     }
 
+    //Create a stats sheet for a player
     uploadPlayerStats()
     {
       this.playerStats.Email = this.personnalParam.Email;
@@ -116,6 +119,7 @@ export class RegisterComponent implements OnInit {
       });
     }
 
+    //Route back to the home screen
     routeToHome(){
       this.router.navigate(['/']);
     }
