@@ -1,4 +1,4 @@
-<button routerLink = "/playerhome"  *ngIf = "valid"></button>
+
 <mat-toolbar>
     <span>Login</span>
   </mat-toolbar>
@@ -11,6 +11,9 @@
               </mat-radio-group>
               <br>
          <!--Add users Email-->
+         <div style = "margin-top: 20px;" *ngIf = 'fail'>
+            <p>Incorrect Username or Password</p>
+         </div>
          <div style = "margin-top: 20px;">
          <mat-form-field class="full-width">
             <mat-label>Email</mat-label>

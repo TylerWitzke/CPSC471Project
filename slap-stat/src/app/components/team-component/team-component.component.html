@@ -7,22 +7,22 @@
           <!--Add users first name-->
           <mat-form-field class="full-width">
             <mat-label>Team Name</mat-label>
-            <input  matInput  placeholder="Team Name"  name="tname"  required>
+            <input  matInput  placeholder="Team Name"  name="tname" [(ngModel)]="team.Name" required>
          </mat-form-field>
          <br>
          <!--Add users last name-->
          <mat-form-field class="full-width">
             <mat-label>League</mat-label>
-            <input  matInput  placeholder="League" name="lname"  required>
+            <input  matInput  placeholder="League" name="lname" [(ngModel)]="team.League" required>
          </mat-form-field>
          <br>
          <!--Add users Email-->
          <mat-form-field class="full-width">
             <mat-label>Division</mat-label>
-            <input  matInput  placeholder="Division" name="division" required>
+            <input  matInput  placeholder="Division" name="division" [(ngModel)]="team.Division" required>
          </mat-form-field>
          <div>
-            <button mat-raised-button color="primary">Submit</button>
+            <button (click)="registerTeam()" mat-raised-button color="primary">Submit</button>
          </div>
          <br>
         </form>
