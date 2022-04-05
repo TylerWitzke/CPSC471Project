@@ -38,7 +38,6 @@ export class PlayerHomeComponent implements OnInit {
   }
 
   player_guy:any = []
-  numba:any = 0
   playa:any = {}
 
   constructor(private auth: PlayerAuthenticationService) { }

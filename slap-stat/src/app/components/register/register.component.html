@@ -7,25 +7,31 @@
           <!--Add users first name-->
           <mat-form-field class="full-width">
             <mat-label>First Name</mat-label>
-            <input  matInput  placeholder="First name"  name="fname" [(ngModel)]="editPlayer.first_name"  required>
+            <input  matInput  placeholder="First name"  name="fname" [(ngModel)]="personnalParam.F_Name"  required>
          </mat-form-field>
          <br>
          <!--Add users last name-->
          <mat-form-field class="full-width">
             <mat-label>Last Name</mat-label>
-            <input  matInput  placeholder="Last Name" name="lname" [(ngModel)]="editPlayer.last_name"  required>
+            <input  matInput  placeholder="Last Name" name="lname" [(ngModel)]="personnalParam.L_Name"  required>
          </mat-form-field>
          <br>
          <!--Add users Email-->
          <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
-            <input  matInput  placeholder="Email" name="email" [(ngModel)]="editPlayer.email" required>
+            <input  matInput  placeholder="Email" name="email" [(ngModel)]="personnalParam.Email" required>
          </mat-form-field>
          <br>
          <!--Add users password-->
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password"  name="password" type = password [(ngModel)]="editPlayer.password" required>
+            <input  matInput  placeholder="Password"  name="password" type = password [(ngModel)]="personnalParam.Password" required>
+         </mat-form-field>
+         <br>
+         <!--Add users Team_ID-->
+         <mat-form-field class="full-width">
+            <mat-label>Team ID</mat-label>
+            <input  matInput  placeholder="Team_ID"  name="team_id" type = team_id [(ngModel)]="personnalParam.Team_ID" required>
          </mat-form-field>
         </form>
         <!--Add buttons for coaches and players-->
@@ -38,13 +44,13 @@
                       <!--Add users height in cm-->
           <mat-form-field class="full-width">
             <mat-label>Height (cm)</mat-label>
-            <input  matInput  placeholder="Height"  name="height"  [(ngModel)]="editPlayer.height" required>
+            <input  matInput  placeholder="Height"  name="height"  [(ngModel)]="playerParam.Height" required>
          </mat-form-field>
          <br>
           <!--Add users height in cm-->
             <mat-form-field class="full-width">
                <mat-label>Weight(lbs)</mat-label>
-                  <input  matInput  placeholder="Weight"  name="weight" [(ngModel)]="editPlayer.weight" required>
+                  <input  matInput  placeholder="Weight"  name="weight" [(ngModel)]="playerParam.Weight" required>
             </mat-form-field>
          <br>
          <!--Add buttons for left and right handed-->
@@ -56,7 +62,7 @@
          <!--Add users height in cm-->
          <mat-form-field class="full-width">
             <mat-label>Number</mat-label>
-               <input  matInput  placeholder="Number"  name="number" [(ngModel)]="editPlayer.number" required>
+               <input  matInput  placeholder="Number"  name="number" [(ngModel)]="playerParam.Number" required>
          </mat-form-field>
          <br>
          <!--Add buttons for position-->

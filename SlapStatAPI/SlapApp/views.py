@@ -24,7 +24,7 @@ def teamApi(request, id=0):
         team_serializer = TeamSerializer(data=teams_data)
         if team_serializer.is_valid():
             team_serializer.save()
-            return JsonResponse("Added Successfully!", safe=False)
+            return JsonResponse(team_serializer.data, safe=False)
         return JsonResponse("Failed to Add", safe=False)
 
     #Delete Request fro Team
