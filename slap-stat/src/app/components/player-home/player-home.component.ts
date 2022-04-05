@@ -48,8 +48,6 @@ export class PlayerHomeComponent implements OnInit {
     }
     else{
       this.router.navigate(['/'])
-
-      
     }
     // this.getGuy('twitzke6@outlook.com');
   }
