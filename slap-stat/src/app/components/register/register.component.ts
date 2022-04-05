@@ -69,9 +69,9 @@ export class RegisterComponent implements OnInit {
       console.log(this.personnalParam); //Just for testing purposes
 
       //First register a personnal into database
-      this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
-        alert(res.toString());
-      });
+     // this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
+       // alert(res.toString());
+     // });
       if(this.player){
         this.playerParam.Email = this.personnalParam.Email;
         this.playerParam.Team_ID = this.personnalParam.Team_ID;
