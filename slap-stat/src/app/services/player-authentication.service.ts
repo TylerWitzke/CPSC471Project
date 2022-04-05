@@ -29,21 +29,18 @@ export class PlayerAuthenticationService {
   constructor(private playerService: PlayerService, private personnalService: PersonnalService) { }
 
   signIn(email: string, password: string):void{
-    console.log(this.players);
-    console.log(this.personnals);
+    
     
     this.getPlayer(email);
-    this.getPersonnal(email);
+    
    
     if(this.players.length == 0){
 
-      console.log('here');
+      console.log('zero');
       return;
     }
-    
-    
-    
-    
+    console.log(this.players);
+    console.log(this.personnals);
     
     this.tempPassword = this.personnals[0].Password;
     //if(this.tempPassword === password){
@@ -69,14 +66,23 @@ export class PlayerAuthenticationService {
     return this.player;
   }
   getPlayer(email:string){
-    this.playerService.getPlayer(email).subscribe(response =>{this.players = response});
+    this.playerService.getPlayer(email).subscribe(response =>{this.players = response;
+    if(response){
+      this.getPersonnal(email);
+    }});
     
   }
   getPersonnal(email:string){
-    this.personnalService.getPersonnal(email).subscribe(response =>{this.personnals = response});
+    this.personnalService.getPersonnal(email).subscribe(response =>{this.personnals = response;
+    if(response){
+      this.func();
+    }});
+    
     
   }
-  
+  func(){
+    console.log('done');
+  }
 
   
 }
