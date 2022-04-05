@@ -185,7 +185,7 @@ def player_statsApi(request, email=''):
         player_stats_serializer = Player_StatsSerializer(player_stats, data=player_stats_data) 
         if player_stats_serializer.is_valid(): 
             player_stats_serializer.save() 
-            return JsonResponse(player_stats_serializer.data) 
+            return JsonResponse("Player Stats Updated", safe=False) 
         return JsonResponse("Failed to Update", safe=False) 
 
 
