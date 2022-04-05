@@ -64,7 +64,7 @@ class Team_Stats(models.Model):
     Wins = models.PositiveIntegerField()
     Losses = models.PositiveIntegerField()
     PIMS = models.PositiveIntegerField()
-    Shots = models.PositiveIntegerField()
+    Shots = models.PositiveIntegerField(default=0)
     Shots_against = models.PositiveIntegerField()
 
 #Create Game_Sheet Model
