@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TeamService } from 'src/app/services/team.service';
 
 @Component({
@@ -15,14 +16,16 @@ export class TeamComponentComponent implements OnInit {
 
   retval: any = {}
 
-  constructor(private tea: TeamService) { }
+  constructor(private tea: TeamService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
+  //This is what calls the api to register our team in the database
   registerTeam(){
     this.tea.addTeam(this.team).subscribe(data => {
       this.retval=data;
+      alert("Your Team ID is "+this.retval.Team_ID+" Please Write this down!!!");
       if(data)
       {
         this.printStuff();
@@ -34,6 +37,11 @@ export class TeamComponentComponent implements OnInit {
   {
     console.log("Print the data below");
     console.log(this.retval);
+  }
+
+  //Route back to the home of the database
+  routeHome(){
+    this.router.navigate(['/']);
   }
 
 }
