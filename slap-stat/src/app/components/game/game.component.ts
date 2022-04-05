@@ -32,13 +32,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class GameComponent implements OnInit {
   displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff'];
   dataSource = ELEMENT_DATA;
+  
 
   constructor() { }
 
   ngOnInit(): void {
-  }
 
-  
+  }
 
   //This grabs the coordinate when the picture is clicked 
   getCoord(event : any){

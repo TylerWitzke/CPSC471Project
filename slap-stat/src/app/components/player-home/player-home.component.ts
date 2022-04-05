@@ -37,21 +37,20 @@ export class PlayerHomeComponent implements OnInit {
     shots: 300
   }
 
-  player_guy:any = []
-  numba:any = 0
-  playa:any = {}
+  
 
   constructor(private auth: PlayerAuthenticationService) { }
 
   ngOnInit(): void {
-    this.auth.signIn('dillon.matthews@gmail.com','peepeepoopoo');
-    this.player = this.auth.getProfile();
-    this.getGuy('twitzke6@outlook.com');
+    if(this.auth.signedIn){
+      this.player = this.auth.getProfile();
+    }
+    // this.getGuy('twitzke6@outlook.com');
   }
 
-getGuy(email:string){
-  this.auth.getPlayer(email).subscribe(player_guy =>this.playa=player_guy[0]);
-}
+// getGuy(email:string){
+//   this.auth.getPlayer(email).subscribe(player_guy =>this.playa=player_guy[0]);
+// }
 
 
 }
