@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
       console.log(this.personnalParam); //Just for testing purposes
 
       //First register a personnal into database
-      this.pers.addPlayer(this.personnalParam).subscribe(res=>{
+      this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
         alert(res.toString());
       });
       if(this.player){
