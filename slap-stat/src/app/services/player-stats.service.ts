@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-<<<<<<< HEAD
-=======
 
->>>>>>> 962a322620f7045885d0232e53a1f822e9844321
 @Injectable({
   providedIn: 'root'
 })
