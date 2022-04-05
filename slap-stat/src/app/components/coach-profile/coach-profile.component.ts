@@ -27,7 +27,7 @@ export class CoachProfileComponent implements OnInit {
   constructor(private auth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
-    this.auth.signIn('joe@gmail.com','password');
+    
     this.coach = this.auth.getProfile();
     this.editCoach.email = this.coach.email;
     this.editCoach.password = this.coach.password;

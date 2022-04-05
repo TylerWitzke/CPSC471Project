@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Coach } from 'src/app/app.component';
 import { Team } from 'src/app/app.component';
 import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
@@ -23,11 +24,15 @@ export class CoachHomeComponent implements OnInit {
     league: 'California state beer league'
 
   }
-  constructor(private auth: CoachAuthenticationService) { }
+  constructor(private auth: CoachAuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
-    this.auth.signIn('joe@gmail.com','password');
-    this.coach = this.auth.getProfile();
+    if(this.auth.signedIn){
+      this.coach = this.auth.getProfile();
+    }
+    else{
+      this.router.navigate(['/']);
+    }
 
   }
   

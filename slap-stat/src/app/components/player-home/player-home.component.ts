@@ -47,6 +47,7 @@ export class PlayerHomeComponent implements OnInit {
       this.player = this.auth.getProfile();
     }
     else{
+      
       this.router.navigate(['/'])
     }
     // this.getGuy('twitzke6@outlook.com');

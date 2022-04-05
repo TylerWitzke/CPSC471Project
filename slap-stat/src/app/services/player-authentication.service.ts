@@ -35,6 +35,12 @@ export class PlayerAuthenticationService {
     this.getPlayer(email);
     
   }
+  signOut(){
+    this.signedIn = false;
+    this.players = [];
+    this.personnals = [];
+    this.router.navigate(['/'])
+  }
   getProfile():Player{
     return this.player;
   }
@@ -76,6 +82,7 @@ export class PlayerAuthenticationService {
       this.player.position = this.players[0].Position;
       this.signedIn = true;
       this.router.navigate(['/playerhome']);
+      
   }
 
   

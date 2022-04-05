@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
 
 import { Router, ActivatedRoute} from '@angular/router';
+import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 @Component({
   selector: 'app-login-component',
   templateUrl: './login-component.component.html',
@@ -13,9 +14,9 @@ export class LoginComponentComponent implements OnInit {
   mode: string = '';
   email: string = '';
   password: string = '';
-  router!: Router;
+  
 
-  constructor(private playerAuth: PlayerAuthenticationService) { }
+  constructor(private playerAuth: PlayerAuthenticationService, private coachAuth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +36,13 @@ export class LoginComponentComponent implements OnInit {
         this.email = '';
         this.password = '';
         
+      }
+      else{
+        console.log('login else');
+        this.coachAuth.signIn(this.email,this.password);
+        this.fail = true;
+        this.email = '';
+        this.password = '';
       }
     
   }
