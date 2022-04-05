@@ -56,8 +56,6 @@ export class RegisterComponent implements OnInit {
 
     //This is what will send the player to the destination
     registerPerson(){
-      console.log(this.personnalParam); //Just for testing purposes
-
       //First register a personnal into database
       this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
         alert(res.toString());
@@ -83,6 +81,11 @@ export class RegisterComponent implements OnInit {
         alert(res.toString());
       });
       }
+    }
+
+    uploadPlayerStats()
+    {
+      
     }
 
     //This function will switch the position of the player based on and event
