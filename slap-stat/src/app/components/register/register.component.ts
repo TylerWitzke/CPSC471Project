@@ -4,6 +4,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { Player } from 'src/app/app.component';
 import { PersonnalService } from 'src/app/services/personnal.service';
 import { CoachService } from 'src/app/services/coach.service';
+import { PlayerService } from 'src/app/services/player.service';
 
 
 @Component({
@@ -13,18 +14,7 @@ import { CoachService } from 'src/app/services/coach.service';
 })
 export class RegisterComponent implements OnInit {
   player: boolean = false;
-  editPlayer: Player = {
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  height: 0,
-  weight: 0,
-  handness: '',
-  number: 0,
-  position: '',
-  team_id: 0
-  }
+
 
   personnalParam: any ={
     Email: '',
@@ -49,7 +39,7 @@ export class RegisterComponent implements OnInit {
     Team_ID: ''
   }
 
-  constructor(private pers: PersonnalService, private coach:CoachService ) { }
+  constructor(private pers: PersonnalService, private coach:CoachService, private play:PlayerService ) { }
 
   
 
@@ -69,18 +59,27 @@ export class RegisterComponent implements OnInit {
       console.log(this.personnalParam); //Just for testing purposes
 
       //First register a personnal into database
-     // this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
-       // alert(res.toString());
-     // });
+      this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
+        alert(res.toString());
+        if(res){
+          this.uploadOther();
+        }
+      });
+
+    }
+
+    uploadOther(){
       if(this.player){
         this.playerParam.Email = this.personnalParam.Email;
         this.playerParam.Team_ID = this.personnalParam.Team_ID;
-        //***Call the Service Here */
+        this.play.addPlayer(this.playerParam).subscribe(res=>{
+          alert(res.toString());
+        });
       } else {
         this.coachParam.Email = this.personnalParam.Email;
         this.coachParam.Team_ID = this.personnalParam.Team_ID;
         //First register a personnal into database
-      this.coach.addCoach(this.personnalParam).subscribe(res=>{
+        this.coach.addCoach(this.coachParam).subscribe(res=>{
         alert(res.toString());
       });
       }
@@ -103,7 +102,6 @@ export class RegisterComponent implements OnInit {
     {
       return this.player;
     }
-
 
 
 }
