@@ -18,12 +18,12 @@ class Personnal(models.Model):
 
 #Create Coach Model
 class Coach(models.Model):
-    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email')
+    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email', unique=True)
     Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID')
 
 #Create Player Model
 class Player(models.Model):
-    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email')
+    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email', unique=True)
     Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID')
     Height = models.PositiveIntegerField()
     Weight = models.PositiveIntegerField()
@@ -42,7 +42,7 @@ class Game(models.Model):
 
 #Create Player_stats Model
 class Player_Stats(models.Model):
-    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email')
+    Email = models.ForeignKey(Personnal, on_delete=models.CASCADE, db_column='Email', unique=True)
     Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID')
     GamesPlayed = models.PositiveIntegerField()
     Goals = models.PositiveIntegerField()
@@ -60,7 +60,7 @@ class Shot(models.Model):
 
 #Create Team_stats Model
 class Team_Stats(models.Model):
-    Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID')
+    Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID', unique=True)
     Wins = models.PositiveIntegerField()
     Losses = models.PositiveIntegerField()
     PIMS = models.PositiveIntegerField()
@@ -68,7 +68,7 @@ class Team_Stats(models.Model):
 
 #Create Game_Sheet Model
 class Game_Sheet(models.Model):
-    Game_ID = models.ForeignKey(Game, on_delete=models.CASCADE, db_column='Game_ID')
+    Game_ID = models.ForeignKey(Game, on_delete=models.CASCADE, db_column='Game_ID', unique=True)
     Team_score = models.PositiveIntegerField()
     Opponent_score = models.PositiveIntegerField()
     Team_shots = models.PositiveIntegerField()

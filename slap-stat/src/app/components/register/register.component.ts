@@ -5,6 +5,8 @@ import { Player } from 'src/app/app.component';
 import { PersonnalService } from 'src/app/services/personnal.service';
 import { CoachService } from 'src/app/services/coach.service';
 import { PlayerService } from 'src/app/services/player.service';
+import { PlayerStatsService } from 'src/app/services/player-stats.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,12 +36,25 @@ export class RegisterComponent implements OnInit {
     Position: ''
   }
 
+  playerStats: any = {
+    Email: '',
+    Team_ID:'',
+    GamesPlayed: 0,
+    Goals: 0,
+    Assists: 0,
+    Shots: 0,
+    Hits: 0,
+    F_wins: 0,
+    F_losses: 0
+  }
+
   coachParam: any = {
     Email: '',
     Team_ID: ''
   }
 
-  constructor(private pers: PersonnalService, private coach:CoachService, private play:PlayerService ) { }
+  constructor(private pers: PersonnalService, private coach:CoachService, private play:PlayerService,
+                    private stat:PlayerStatsService, private router:Router ) { }
 
   
 
@@ -60,32 +75,49 @@ export class RegisterComponent implements OnInit {
       this.pers.addPersonnal(this.personnalParam).subscribe(res=>{
         alert(res.toString());
         if(res){
-          this.uploadOther();
+            this.uploadOther(res.toString().includes('Failed'));
         }
       });
 
     }
 
-    uploadOther(){
+    uploadOther(inDatabase: boolean){
+      console.log(inDatabase);
+      if(inDatabase) return;
+
       if(this.player){
         this.playerParam.Email = this.personnalParam.Email;
         this.playerParam.Team_ID = this.personnalParam.Team_ID;
         this.play.addPlayer(this.playerParam).subscribe(res=>{
-          alert(res.toString());
+          if(res){
+            this.uploadPlayerStats();
+          }
         });
       } else {
         this.coachParam.Email = this.personnalParam.Email;
         this.coachParam.Team_ID = this.personnalParam.Team_ID;
         //First register a personnal into database
         this.coach.addCoach(this.coachParam).subscribe(res=>{
-        alert(res.toString());
+        if(res){
+          this.routeToHome();
+        }
       });
       }
     }
 
     uploadPlayerStats()
     {
-      
+      this.playerStats.Email = this.personnalParam.Email;
+      this.playerStats.Team_ID = this.personnalParam.Team_ID;
+      this.stat.addPlayer_Stat(this.playerStats).subscribe(res=>{
+        if(res){
+          this.routeToHome();
+        }
+      });
+    }
+
+    routeToHome(){
+      this.router.navigate(['/']);
     }
 
     //This function will switch the position of the player based on and event
