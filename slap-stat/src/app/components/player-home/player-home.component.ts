@@ -3,6 +3,8 @@ import { PlayerAuthenticationService } from 'src/app/services/player-authenticat
 import { Player } from 'src/app/app.component';
 import { Team } from 'src/app/app.component';
 import { Router } from '@angular/router';
+import { TeamService } from 'src/app/services/team.service';
+import { TeamStatsService } from 'src/app/services/team-stats.service';
 @Component({
   selector: 'app-player-home',
   templateUrl: './player-home.component.html',
@@ -24,9 +26,9 @@ export class PlayerHomeComponent implements OnInit {
   team: Team = {
     team_id: 1,
     team_record: '24-9-3',
-    name: 'Dixon Ciders',
-    division: 'south cali',
-    league: 'California state beer league'
+    name: '',
+    division: '',
+    league: ''
 
   }
   player_stats = {
@@ -37,10 +39,10 @@ export class PlayerHomeComponent implements OnInit {
     f_percentage: 22,
     shots: 300
   }
+  teams: any = [];
+  teamStats: any = [];
 
-  
-
-  constructor(private auth: PlayerAuthenticationService,private router:Router) { }
+  constructor(private auth: PlayerAuthenticationService,private router:Router, private teamService: TeamService, private teamStatService: TeamStatsService) { }
 
   ngOnInit(): void {
     if(this.auth.signedIn){
@@ -50,12 +52,26 @@ export class PlayerHomeComponent implements OnInit {
       
       this.router.navigate(['/'])
     }
-    // this.getGuy('twitzke6@outlook.com');
+    this.getTeam(this.player.team_id);
+
+    
+
+    
+  }
+  getTeam(id: number){
+    this.team.team_id = id;
+    this.teamService.getTeam(id).subscribe(response =>{this.teams = response;
+      if(response){
+        this.populateTeam();
+      }});
+  }
+  populateTeam(){
+    this.team.name = this.teams[0].Name;
+    this.team.league = this.teams[0].League;
+    this.team.division = this.teams[0].Division;
   }
 
-// getGuy(email:string){
-//   this.auth.getPlayer(email).subscribe(player_guy =>this.playa=player_guy[0]);
-// }
+
 
 
 }
