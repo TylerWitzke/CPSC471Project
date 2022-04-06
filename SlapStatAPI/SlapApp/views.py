@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from django.db.models import F
 
 from SlapApp.models import *
 from SlapApp.serializers import *
@@ -150,7 +151,7 @@ def gameApi(request, gameID=0):
         game_serializer = GameSerializer(data=game_data)
         if game_serializer.is_valid():
             game_serializer.save()
-            return JsonResponse("Added Successfully!", safe=False)
+            return JsonResponse(game_serializer.data, safe=False)
         return JsonResponse("Failed to Add", safe=False)
 
     #Delete Request for Game
@@ -293,3 +294,39 @@ def allPersonnalAPI(request, teamid=0):
         game_sheet = Personnal.objects.filter(Team_ID=teamid).select_related()
         game_sheets_serializer = PersonnalSerializer(game_sheet, many=True)
         return JsonResponse(game_sheets_serializer.data, safe=False)
+
+
+@csrf_exempt
+def updateTeamAPI(request, teamid=0):
+    if request.method == 'PUT': 
+        team_stats_data = JSONParser().parse(request)
+        team_stats = Team_Stats.objects.get(Team_ID=teamid)
+        team_stats_data['Wins'] = team_stats_data['Wins']+team_stats.Wins
+        team_stats_data['Losses'] = team_stats_data['Losses']+team_stats.Losses
+        team_stats_data['PIMS'] = team_stats_data['PIMS']+team_stats.PIMS
+        team_stats_data['Shots'] = team_stats_data['Shots']+team_stats.Shots
+        team_stats_data['Shots_against'] = team_stats_data['Shots_against']+team_stats.Shots_against
+        team_stats_serializer = Team_StatsSerializer(team_stats, data=team_stats_data) 
+        if team_stats_serializer.is_valid(): 
+            team_stats_serializer.save() 
+            return JsonResponse(team_stats_serializer.data) 
+        return JsonResponse("Failed to Update", safe=False)
+
+
+@csrf_exempt
+def updatePlayerAPI(request, email=''):
+    if request.method == 'PUT': 
+        team_stats_data = JSONParser().parse(request)
+        team_stats = Player_Stats.objects.get(Email=email)
+        team_stats_data['GamesPlayed'] = team_stats_data['GamesPlayed']+team_stats.GamesPlayed
+        team_stats_data['Goals'] = team_stats_data['Goals']+team_stats.Goals
+        team_stats_data['Assists'] = team_stats_data['Assists']+team_stats.Assists
+        team_stats_data['Shots'] = team_stats_data['Shots']+team_stats.Shots
+        team_stats_data['Hits'] = team_stats_data['Hits']+team_stats.Hits
+        team_stats_data['F_wins'] = team_stats_data['F_wins']+team_stats.F_wins
+        team_stats_data['F_losses'] = team_stats_data['F_losses']+team_stats.F_losses
+        team_stats_serializer = Player_StatsSerializer(team_stats, data=team_stats_data) 
+        if team_stats_serializer.is_valid(): 
+            team_stats_serializer.save() 
+            return JsonResponse(team_stats_serializer.data) 
+        return JsonResponse("Failed to Update", safe=False)
