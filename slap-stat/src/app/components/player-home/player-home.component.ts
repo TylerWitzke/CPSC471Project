@@ -73,7 +73,7 @@ export class PlayerHomeComponent implements OnInit {
     this.team.team_id = id;
     this.teamService.getTeam(id).subscribe(response =>{this.teams = response;
       if(response){
-        this.populateTeam();
+        this.getTeamStats(id);
       }});
   }
   getTeamStats(id: number){
@@ -94,28 +94,26 @@ export class PlayerHomeComponent implements OnInit {
     this.player_stats.goals = this.playerStats[0].Goals;
     this.player_stats.assists = this.playerStats[0].Assists;
     this.player_stats.shots = this.playerStats[0].Shots;
+    
     this.player_stats.hits = this.playerStats[0].Hits;
     this.player_stats.f_percentage = Math.trunc(100*parseInt(String(this.playerStats[0].F_wins))/(parseInt(String(this.playerStats[0].F_wins))+parseInt(String(this.playerStats[0].F_losses))));
-    
-    
-    
   }
   populateTeam(){ 
     this.team.name = this.teams[0].Name;
     this.team.league = this.teams[0].League;
     this.team.division = this.teams[0].Division;
-    // let w = this.teamStats[0].Wins;
-    // let l = this.teamStats[0].Losses;
-    // let s = '';
-    // s+=w;
-    // s += ' - ';
-    // s += l;
-    // this.team.team_record = s;
-    // this.team_stats.wins = this.teamStats[0].Wins;
-    // this.team_stats.losses = this.teamStats[0].Losses;
-    // this.team_stats.pims = this.teamStats[0].PIMS;
-    // this.team_stats.shotsAgainst = this.teamStats[0].shotsAgainst;
-    // console.log(this.team_stats);
+    let w = String(this.teamStats[0].Wins);
+    let l = String(this.teamStats[0].Losses);
+    let s = '';
+    s+=w;
+    s += ' - ';
+    s += l;
+    this.team.team_record = s;
+    this.team_stats.wins = this.teamStats[0].Wins;
+    this.team_stats.losses = this.teamStats[0].Losses;
+    this.team_stats.pims = this.teamStats[0].PIMS;
+    this.team_stats.shotsAgainst = this.teamStats[0].Shots_against;
+    console.log(this.team_stats);
   }
 
 
