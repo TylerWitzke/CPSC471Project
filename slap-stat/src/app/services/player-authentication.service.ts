@@ -81,8 +81,12 @@ export class PlayerAuthenticationService {
       this.player.number = this.players[0].Number;
       this.player.position = this.players[0].Position;
       this.signedIn = true;
-      this.router.navigate(['/playerhome']);
+      // this.router.navigate(['/playerhome']);
+      this.routeNav('playerhome')
       
+  }
+  routeNav(link: string){
+    this.router.navigate(['/'+link]);
   }
 
   

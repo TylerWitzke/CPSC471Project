@@ -1,6 +1,9 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 import { PersonnalService } from 'src/app/services/personnal.service';
+import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
 import { PlayerService } from 'src/app/services/player.service';
 
 export interface PeriodicElement {
@@ -59,9 +62,10 @@ export class LeaderboardComponent implements OnInit {
 
  
   constructor(private player: PlayerService, private activatedRoute: ActivatedRoute, 
-                  private person: PersonnalService) { }
+                  private person: PersonnalService, private playerAuth: PlayerAuthenticationService,private coachAuth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
+    
     this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
     this.teamName = this.activatedRoute.snapshot.paramMap.get('teamname');
     console.log(this.teamID);
@@ -73,11 +77,14 @@ export class LeaderboardComponent implements OnInit {
         this.grabPlayers();
       }
     });
-
-
   }
   goHome(){
-    
+    if(this.playerAuth.signedIn){
+      this.playerAuth.routeNav('playerhome')
+    }
+    else if(this.coachAuth.signedIn){
+      this.coachAuth.routeNav('coachhome')
+    }
   }
 
   grabPlayers(){

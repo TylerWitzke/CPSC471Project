@@ -119,10 +119,7 @@ export class PlayerHomeComponent implements OnInit {
 
   routeLeader(){
     console.log("Here");
-    this.router.navigate(['/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name]);
+    //this.router.navigate(['/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name]);
+    this.auth.routeNav('/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name)
   }
-
-
-
-
 }

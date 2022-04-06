@@ -65,4 +65,9 @@ export class CoachAuthenticationService {
     this.router.navigate(['/coachhome']);
 
   }
+  routeNav(link: string){
+    this.router.navigate(['/'+link]);
+  }
+
+  
 }
