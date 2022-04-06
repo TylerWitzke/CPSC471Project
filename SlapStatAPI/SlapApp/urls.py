@@ -43,4 +43,8 @@ urlpatterns=[
     #Accept all requests to get coach
     url(r'^game_sheet/$', views.game_sheetApi),
     url(r'^game_sheet/([^\s]+)$', views.game_sheetApi ),
+
+    #Accept all requests to get coach
+    url(r'^allplayer/$', views.allPlayerAPI),
+    url(r'^allplayer/([^\s]+)$', views.allPlayerAPI ),
 ]

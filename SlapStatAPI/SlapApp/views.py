@@ -265,3 +265,12 @@ def game_sheetApi(request, gameid=0):
             game_sheet_serializer.save() 
             return JsonResponse(game_sheet_serializer.data) 
         return JsonResponse("Failed to Update", safe=False) 
+
+#This is the API for Game_Sheet table in the database
+@csrf_exempt
+def allPlayerAPI(request, teamid=0):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        game_sheet = Player_Stats.objects.filter(Team_ID=teamid)
+        game_sheets_serializer = Player_StatsSerializer(game_sheet, many=True)
+        return JsonResponse(game_sheets_serializer.data, safe=False)
