@@ -22,4 +22,8 @@ export class PlayerService {
   deletePlayer(val:any){
     return this.http.delete(this.APIUrl + 'player/'+val);
   }
+
+  getAllPlayer(teamid:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl +'allplayer/'+teamid);
+  }
 }

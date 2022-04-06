@@ -19,6 +19,7 @@ import { CoachProfileComponent } from './components/coach-profile/coach-profile.
 import { CoachAuthenticationService } from './services/coach-authentication.service';
 import { PlayerAuthenticationService } from './services/player-authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     PlayerHomeComponent,
     CoachHomeComponent,
     PlayerProfileComponent,
-    CoachProfileComponent
+    CoachProfileComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
       { path: 'playerhome', component: PlayerHomeComponent},
       { path: 'coachhome', component: CoachHomeComponent},
       { path: 'playerprofile', component: PlayerProfileComponent},
-      { path: 'coachprofile', component: CoachProfileComponent}
+      { path: 'coachprofile', component: CoachProfileComponent},
+      { path: 'leaderboard', component: LeaderboardComponent}
     ]),
   ],
   providers: [PlayerAuthenticationService, CoachAuthenticationService],

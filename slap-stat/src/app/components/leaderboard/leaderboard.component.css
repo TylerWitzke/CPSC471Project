@@ -1,0 +1,7 @@
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+    border-radius: 10px;
+    width: 60%;
+    justify-content: right;
+  }
