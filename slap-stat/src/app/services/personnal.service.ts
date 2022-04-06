@@ -24,5 +24,9 @@ export class PersonnalService {
   deletePersonnal(val:any){
     return this.http.delete(this.APIUrl + 'personnal/'+val);
   }
+
+  getAllPersonnal(teamID:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl +'allpersonnal/'+teamID);
+  }
 }
 

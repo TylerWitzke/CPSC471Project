@@ -81,3 +81,4 @@ class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin
         fields = ('Email', 'Password')
+

@@ -47,4 +47,12 @@ urlpatterns=[
     #Accept all requests to get coach
     url(r'^allplayer/$', views.allPlayerAPI),
     url(r'^allplayer/([^\s]+)$', views.allPlayerAPI ),
+
+    #Accept all requests to get coach
+    url(r'^allplayers/$', views.allPlayersAPI),
+    url(r'^allplayers/([^\s]+)$', views.allPlayersAPI ),
+
+    #Accept all requests to get allPersonnal
+    url(r'^allpersonnal/$', views.allPersonnalAPI),
+    url(r'^allpersonnal/([^\s]+)$', views.allPersonnalAPI ),
 ]
