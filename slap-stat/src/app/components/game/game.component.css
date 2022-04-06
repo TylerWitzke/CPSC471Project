@@ -1,19 +1,5 @@
-.mat-table {
-    overflow: auto;
-    max-height: 500px;
-    border-radius: 10px;
-    width: 60%;
-    justify-content: right;
-  }
-
-  .mat-button {
-    line-height: 400px;
-    width: 100px;
-    font-size: 10pt;
-    font-family: tahoma;
-    position:absolute;
-    top:10%;
-    right:10%;
+.update-field {
+  margin-right: 20px;
 }
 
 

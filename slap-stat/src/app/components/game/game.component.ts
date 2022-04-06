@@ -33,7 +33,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class GameComponent implements OnInit {
   displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff_win', 'faceoff_loss'];
   dataSource = ELEMENT_DATA;
-  
+  goalInput : boolean =  false;
+  goalNumber : string = '';
+  assist1Number: string = '';
+  assist2Number: string = '';
+  goalCancelToggle: string = 'Add Goal';
+
+
 
   constructor() { }
 
@@ -53,6 +59,40 @@ export class GameComponent implements OnInit {
    item.goals+=1;
    console.log(item.goals);
  }
-
+ onGoal(){
+   this.goalInput = !this.goalInput;
+   if(this.goalInput){
+     this.goalCancelToggle = 'Cancel';
+   }
+   else{
+     this.goalCancelToggle = 'Add Goal'
+   }
+ }
+ submitGoal(){
+   let g = parseInt(this.goalNumber);
+   let a1 = parseInt(this.assist1Number);
+   let a2 = parseInt(this.assist2Number);
+   for(let i = 0;i<this.dataSource.length;i++){
+    if(g == this.dataSource[i].number){
+      this.dataSource[i].goals++;
+    }
+   }
+   for(let i = 0;i<this.dataSource.length;i++){
+    if(a1 == this.dataSource[i].number){
+      this.dataSource[i].assists++;
+    }
+   }
+   for(let i = 0;i<this.dataSource.length;i++){
+    if(a2 == this.dataSource[i].number){
+      this.dataSource[i].assists++;
+    }
+   }
+   this.goalInput = false;
+   this.goalCancelToggle = 'Add Goal';
+   this.assist1Number = '';
+   this.assist2Number = '';
+   this.goalNumber = '';
+ }
+ 
 
 }
