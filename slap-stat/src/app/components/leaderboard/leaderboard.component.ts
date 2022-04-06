@@ -76,6 +76,9 @@ export class LeaderboardComponent implements OnInit {
 
 
   }
+  goHome(){
+    
+  }
 
   grabPlayers(){
     this.player.getAllPlayers(this.teamID).subscribe(res=>{
@@ -109,7 +112,7 @@ export class LeaderboardComponent implements OnInit {
         assists: this.playerList[i].Assists,
         shots: this.playerList[i].Shots,
         hits: this.playerList[i].Hits,
-        faceoff: this.playerList[i].Assists
+        faceoff: Math.trunc(100*parseInt(String(this.playerList[i].F_wins))/(parseInt(String(this.playerList[i].F_wins))+parseInt(String(this.playerList[i].F_losses))))
       }
 
       

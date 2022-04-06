@@ -56,15 +56,15 @@ export class PlayerHomeComponent implements OnInit {
     , private teamStatService: TeamStatsService, private playerStatsService: PlayerStatsService) { }
 
   ngOnInit(): void {
-    if(this.auth.signedIn){
+    //if(this.auth.signedIn){
       this.player = this.auth.getProfile();
-    }
-    else{
+    //}
+    // else{
       
-      this.router.navigate(['/'])
-    }
-    this.getTeam(this.player.team_id);
-    this.getPlayerStats(this.player.email);
+    //   this.router.navigate(['/'])
+    // }
+     this.getTeam(this.player.team_id);
+     this.getPlayerStats(this.player.email);
     
 
     
@@ -118,6 +118,7 @@ export class PlayerHomeComponent implements OnInit {
 
 
   routeLeader(){
+    console.log("Here");
     this.router.navigate(['/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name]);
   }
 
