@@ -119,6 +119,12 @@ export class PlayerHomeComponent implements OnInit {
   }
 
 
+  routeLeader(){
+    console.log("fook");
+    this.router.navigate(['/leaderboard/'+this.team.team_id.toString()]);
+  }
+
+
 
 
 }

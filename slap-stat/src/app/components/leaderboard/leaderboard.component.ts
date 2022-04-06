@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from 'src/app/services/player.service';
-import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
-import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
+
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -37,20 +37,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class LeaderboardComponent implements OnInit {
   displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff'];
   dataSource = ELEMENT_DATA;
-  teamID: number = 0;
+  teamID: any;
   playerList: any = []
-  constructor(private player: PlayerService, private coachauth: CoachAuthenticationService,
-                private playauth: PlayerAuthenticationService) { }
+  constructor(private player: PlayerService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if(this.playauth.signedIn){
-      this.teamID = this.playauth.player.team_id;
-    } else {
-      this.teamID = this.coachauth.coach.team_id;
-    }
-
+    this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(this.teamID);
     this.player.getAllPlayer(this.teamID).subscribe(res=>{
-      
+      this.playerList = res;
+      if(res){
+        console.log(this.teamID);
+        console.log(this.playerList);
+      }
     });
   }
 

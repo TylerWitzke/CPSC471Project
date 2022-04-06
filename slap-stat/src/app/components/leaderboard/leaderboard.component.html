@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row">
-        <table mat-table [dataSource]="playerList" class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     
           <!-- Number -->
-          <ng-container matColumnDef="Number">
+          <ng-container matColumnDef="number">
             <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td *matCellDef="let element"> {{element.Number}} </td>
+            <td *matCellDef="let element"> {{element.number}} </td>
           </ng-container>
         
           <!-- Name Column -->
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-button routerLink="/playerhome" mat-cell *matCellDef="let element" color ="#0000FF"> {{element.name}} </td>
+            <td mat-button mat-cell *matCellDef="let element" color ="#0000FF"> {{element.name}} </td>
           </ng-container>
         
           <!-- Goal Column -->
