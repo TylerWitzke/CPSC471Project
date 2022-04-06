@@ -56,9 +56,6 @@ export class RegisterComponent implements OnInit {
   constructor(private pers: PersonnalService, private coach:CoachService, private play:PlayerService,
                     private stat:PlayerStatsService, private router:Router ) { }
 
-  
-
-
 
   ngOnInit(): void {
   }
