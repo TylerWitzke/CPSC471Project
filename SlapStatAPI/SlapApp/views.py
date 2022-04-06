@@ -274,3 +274,22 @@ def allPlayerAPI(request, teamid=0):
         game_sheet = Player_Stats.objects.filter(Team_ID=teamid)
         game_sheets_serializer = Player_StatsSerializer(game_sheet, many=True)
         return JsonResponse(game_sheets_serializer.data, safe=False)
+
+
+#This is the API for Game_Sheet table in the database
+@csrf_exempt
+def allPlayersAPI(request, teamid=0):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        game_sheet = Player.objects.filter(Team_ID=teamid)
+        game_sheets_serializer = PlayerSerializer(game_sheet, many=True)
+        return JsonResponse(game_sheets_serializer.data, safe=False)
+
+#This is the API for Game_Sheet table in the database
+@csrf_exempt
+def allPersonnalAPI(request, teamid=0):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        game_sheet = Personnal.objects.filter(Team_ID=teamid).select_related()
+        game_sheets_serializer = PersonnalSerializer(game_sheet, many=True)
+        return JsonResponse(game_sheets_serializer.data, safe=False)

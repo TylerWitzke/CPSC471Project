@@ -23,7 +23,13 @@ export class PlayerService {
     return this.http.delete(this.APIUrl + 'player/'+val);
   }
 
+  //Gets all player stats relating to that specific team ID
   getAllPlayer(teamid:any):Observable<any[]>{
     return this.http.get<any[]>(this.APIUrl +'allplayer/'+teamid);
+  }
+
+  //Gets all players relating to that specific team ID
+  getAllPlayers(teamid:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl +'allplayers/'+teamid);
   }
 }

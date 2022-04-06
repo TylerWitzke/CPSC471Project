@@ -52,7 +52,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
       { path: 'coachhome', component: CoachHomeComponent},
       { path: 'playerprofile', component: PlayerProfileComponent},
       { path: 'coachprofile', component: CoachProfileComponent},
-      { path: 'leaderboard', component: LeaderboardComponent}
+      { path: 'leaderboard/:id/:teamname', component: LeaderboardComponent}
     ]),
   ],
   providers: [PlayerAuthenticationService, CoachAuthenticationService],
