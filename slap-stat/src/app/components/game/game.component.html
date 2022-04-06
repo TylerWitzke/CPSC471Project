@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="row">
-    <button mat-button>Goal</button>
+    
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
         <!-- Number -->
@@ -64,13 +64,31 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    
-    
-    
-    
-    
+  
     <div id="rink">
       <img id="rink-img" src="assets/img/rink.jpg"  (click)="getCoord($event)"/>
+    </div>
+    <div>
+      <button (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
+    </div>
+    <div style="margin-top:10px;" *ngIf = "goalInput">
+      <div style="margin-left:10px;" >
+        <mat-form-field class = "update-field" appearance="fill">
+          <mat-label>Number of Goal Scorer</mat-label>
+          <input appearance="fill" matInput placeholder="Goal Scorer" type="text" [(ngModel)]="goalNumber">
+        </mat-form-field>
+        <mat-form-field class = "update-field" appearance="fill">
+          <mat-label>Number of Assist</mat-label>
+          <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist1Number">
+        </mat-form-field>
+        <mat-form-field class = "update-field" appearance="fill">
+          <mat-label>Number of Assist</mat-label>
+          <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist2Number">
+        </mat-form-field>
+      </div>
+      <div>
+        <button (click) = "submitGoal()"  mat-raised-button color="primary">Submit</button>
+      </div>
     </div>
 
     </div>
