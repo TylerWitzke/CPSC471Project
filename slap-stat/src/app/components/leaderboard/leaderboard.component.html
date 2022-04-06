@@ -1,6 +1,6 @@
 <div class="topnav">
     
-  <a href="/playerhome">Home Page</a>
+  <a (click) = "goHome()">Home Page</a>
   <a >Team Leader Board</a>
   <a href="/playerprofile">Profile</a>
 </div>
@@ -55,7 +55,5 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
     </div>
-
 </div>

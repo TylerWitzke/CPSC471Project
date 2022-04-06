@@ -77,6 +77,10 @@ export class CoachHomeComponent implements OnInit {
     this.team_stats.shotsAgainst = this.teamStats[0].Shots_against;
     console.log(this.team_stats);
   }
-  
+  routeLeader(){
+    console.log("Here");
+    //this.router.navigate(['/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name]);
+    this.auth.routeNav('/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name)
+  }
 
 }
