@@ -3,6 +3,11 @@ import { PlayerService } from 'src/app/services/player.service';
 import { ActivatedRoute } from '@angular/router';
 import { PersonnalService } from 'src/app/services/personnal.service';
 import { GameService } from 'src/app/services/game.service';
+import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
+import { GameSheetService } from 'src/app/services/game-sheet.service';
+import { TeamStatsService } from 'src/app/services/team-stats.service';
+import { PlayerStatsService } from 'src/app/services/player-stats.service';
+import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -37,6 +42,7 @@ var ELEMENT_DATA: PeriodicElement[] = [
 export class GameComponent implements OnInit {
   displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff_win', 'faceoff_loss'];
   dataSource = ELEMENT_DATA;
+   i:number = -1;
   goalInput : boolean =  false;
   goalNumber : string = '';
   assist1Number: string = '';
@@ -46,14 +52,22 @@ export class GameComponent implements OnInit {
   personnalList: any = [];
   combined: PlayersInfo[] = [];
   returnGame: any =[];
+  returnPlayer: any =[];
   teamID: any;
   teamName: any = '';
   oppName: string = '';
   tScore: number = 0;
   oScore: number = 0;
   gameId: string = '';
+  minorStats: any = {
+    shots: 0,
+    hits: 0,
+    fWins: 0,
+    fLoss: 0
+  }
   constructor(private playerServ: PlayerService, private activatedRoute: ActivatedRoute,
-     private personServ: PersonnalService, private gameServ: GameService ) { }
+     private personServ: PersonnalService, private gameServ: GameService, private sheetServe: GameSheetService,
+      private tStat: TeamStatsService, private pStat: PlayerStatsService, private auth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
     ELEMENT_DATA = [];
@@ -169,20 +183,100 @@ export class GameComponent implements OnInit {
    this.tScore++;
  }
  submitGame(){
+  var date = new Date();
+  var s = date.toISOString().substring(0,10);
+ 
    var game: any = {
      Team_ID: this.teamID,
      HomeAway: 'H',
      Opponent: this.oppName,
-     Date: "2022-06-07"
+     Date: s
    }
    this.gameServ.addGame(game).subscribe(response =>{this.returnGame = response;
     if(response){
-      console.log(this.returnGame);
+      this.submitGameStats();
     }});
  }
- postGame(){
+  submitGameStats(){
+    
+    for(let i = 0;i<this.dataSource.length;i++){
+      this.minorStats.shots += this.dataSource[i].shots;
+      this.minorStats.hits += this.dataSource[i].hits;
+      this.minorStats.fWins += this.dataSource[i].faceoff_win;
+      this.minorStats.fLoss += this.dataSource[i].faceoff_loss;
+    }
+    console.log(this.returnGame.Game_ID);
+    var gameSheet: any = {
+      Game_ID: this.returnGame.Game_ID,
+      Team_score: this.tScore,
+      Opponent_score: this.oScore,
+      Team_shots: this.minorStats.shots,
+      Opponent_shots: 25,
+      Team_hits: this.minorStats.hits,
+      F_wins: this.minorStats.fWins,
+      F_losses: this.minorStats.fLoss
+    }
+    this.sheetServe.addGame_Sheet(gameSheet).subscribe(res=>{
+      alert(res.toString());
+      if(res){
+          this.updateTeamStats();
+      }
+    });
 
- }
+  }
+  updateTeamStats(){
+    var teamStats: any = {
+      Team_ID: this.teamID,
+      Wins: 56,
+      Losses: 1,
+      PIMS: 0,
+      Shots: this.minorStats.shots,
+      Shots_against: 25
+    }
+    if(this.tScore>=this.oScore){
+      teamStats.Wins = 1;
+      teamStats.Losses = 0;
+    }
+    else{
+      teamStats.Wins = 0;
+      teamStats.Losses = 1;
+    }
+    console.log(teamStats);
+    this.tStat.putTeamStats(this.teamID,teamStats).subscribe(res=>{
+      alert(res.toString());
+      if(res){
+          this.updatePlayers();
+      }
+    });
+  }
+  updatePlayers(){
+      this.i++;
+      console.log(this.returnPlayer);
+      if(this.i>=this.dataSource.length){
+        this.auth.routeNav('coachhome');
+        return;
+      }
+      
+      console.log(this.dataSource[this.i].email);
+      var playerStat: any = {
+        Email: this.dataSource[this.i].email,
+        Team_ID: this.teamID,
+        GamesPlayed: 1,
+        Goals: this.dataSource[this.i].goals,
+        Assists: this.dataSource[this.i].assists,
+        Shots: this.dataSource[this.i].shots,
+        Hits: this.dataSource[this.i].hits,
+        F_wins: this.dataSource[this.i].faceoff_win,
+        F_losses: this.dataSource[this.i].faceoff_loss
+      }
+      this.pStat.putPlayer_Stat(this.dataSource[this.i].email, playerStat).subscribe(response =>{this.returnPlayer = response;
+        if(response){
+          this.updatePlayers();
+        }});
+    
+    this.auth.routeNav('coachhome');
+  }
+  
  
 
 }

@@ -17,7 +17,7 @@ export class PlayerStatsService {
     return this.http.post(this.APIUrl + 'player_stats/',val);
   }
 
-  putPlayer_Stat(val:any){
-    return this.http.put(this.APIUrl + 'player_stats/',val);
+  putPlayer_Stat(email: any,val:any){
+    return this.http.put(this.APIUrl + 'updateplayer/'+email,val);
   }
 }

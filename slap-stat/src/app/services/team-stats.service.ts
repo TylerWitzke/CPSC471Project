@@ -16,7 +16,7 @@ export class TeamStatsService {
     return this.http.post<any[]>(this.APIUrl + 'team_stats/',val);
   }
 
-  putTeamStats(val:any){
-    return this.http.put(this.APIUrl + 'personnal/',val);
+  putTeamStats(id: any,val:any){
+    return this.http.put(this.APIUrl + 'updateteam/'+id,val);
   }
 }
