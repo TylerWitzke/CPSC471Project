@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { PlayerService } from 'src/app/services/player.service';
+import { ActivatedRoute } from '@angular/router';
+import { PersonnalService } from 'src/app/services/personnal.service';
+import { GameService } from 'src/app/services/game.service';
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -9,19 +12,20 @@ export interface PeriodicElement {
   hits: number;
   faceoff_win: number;
   faceoff_loss: number;
+  email: string;
+  teamN: string;
+  
+}
+export interface PlayersInfo {
+  
+  number: number;
+  name: string;
+  email: string;
+  
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {number: 1, name: 'D.Reagan', goals: 0, assists: 0, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 2, name: 'D.Anhorn', goals: 0, assists: 2, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 3, name: 'E.St James', goals:3, assists: 1, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 8, name: 'D.Matthews', goals: 2, assists: 1, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 9, name: 'T.Witzke', goals: 3, assists: 3, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 12, name: 'J.Iginla', goals: 0, assists: 3, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 24, name: 'D.Smith', goals: 1, assists: 2, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 36, name: 'E.Kane', goals: 0, assists: 1, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 45, name: 'R.Reaves', goals: 0, assists: 1, shots: 3, hits: 4, faceoff_win: 46, faceoff_loss: 23},
-  {number: 88, name: 'S.Monoghan', goals: 0, assists: 0, shots: 3, hits: 8, faceoff_win: 28, faceoff_loss: 23},
+var ELEMENT_DATA: PeriodicElement[] = [
+  
 ];
 
 
@@ -38,15 +42,75 @@ export class GameComponent implements OnInit {
   assist1Number: string = '';
   assist2Number: string = '';
   goalCancelToggle: string = 'Add Goal';
-
-
-
-  constructor() { }
+  players: any = [];
+  personnalList: any = [];
+  combined: PlayersInfo[] = [];
+  returnGame: any =[];
+  teamID: any;
+  teamName: any = '';
+  oppName: string = '';
+  tScore: number = 0;
+  oScore: number = 0;
+  gameId: string = '';
+  constructor(private playerServ: PlayerService, private activatedRoute: ActivatedRoute,
+     private personServ: PersonnalService, private gameServ: GameService ) { }
 
   ngOnInit(): void {
-
+    ELEMENT_DATA = [];
+    console.log(this.dataSource);
+    this.teamName = this.activatedRoute.snapshot.paramMap.get('teamname');
+    this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
+    this.grabPlayers();
   }
+  grabPlayers(){
+    this.playerServ.getAllPlayers(this.teamID).subscribe(res=>{
+      this.players = res;
+      if(res){
+        this.grabPersonnal()
+      }
+    });
+  }
+  grabPersonnal(){
+    this.personServ.getAllPersonnal(this.teamID).subscribe(res=>{
+      this.personnalList = res;
+      if(res){
+        this.popArray();
+      }
+    });
+  }
+  popArray()
+  {
+    console.log("Population time bitches");
+    var j = 0;
+    for (var i = 0; i < this.players.length; i++){
 
+      var temp: PlayersInfo = {
+        
+        number: this.players[i].Number,
+        name: this.players[i].Email,
+        email: this.players[i].Email
+      }
+
+      
+      while(j < this.personnalList.length){
+          if(this.personnalList[j].Email == temp.name){
+            temp.name = this.personnalList[j].F_Name.charAt(0)+'.'+this.personnalList[j].L_Name;
+            break;
+          }
+        j++;
+      }
+      this.combined.push(temp);
+      console.log(this.combined);
+    }
+    console.log(this.combined);
+    this.popList();
+  }
+  popList(){
+    for(let i = 0; i<this.combined.length;i++){
+      var element: PeriodicElement = {number: this.combined[i].number, name: this.combined[i].name, goals: 0, assists: 0, shots: 0, hits: 0, faceoff_win: 0, faceoff_loss: 0, email: this.combined[i].email, teamN: this.teamName};
+      this.dataSource.push(element);
+    }
+  }
   //This grabs the coordinate when the picture is clicked 
   getCoord(event : any){
     var x = event.clientX;
@@ -56,9 +120,19 @@ export class GameComponent implements OnInit {
  }
 
  printHits(item: any){
-   item.goals+=1;
-   console.log(item.goals);
+   item.hits+=1;
+   
  }
+ incrOppScore(){
+   this.oScore++;
+ }
+ addFWin(item: any){
+   item.faceoff_win++;
+ }
+ addFLoss(item: any){
+  item.faceoff_loss++;
+}
+
  onGoal(){
    this.goalInput = !this.goalInput;
    if(this.goalInput){
@@ -92,6 +166,22 @@ export class GameComponent implements OnInit {
    this.assist1Number = '';
    this.assist2Number = '';
    this.goalNumber = '';
+   this.tScore++;
+ }
+ submitGame(){
+   var game: any = {
+     Team_ID: this.teamID,
+     HomeAway: 'H',
+     Opponent: this.oppName,
+     Date: "2022-06-07"
+   }
+   this.gameServ.addGame(game).subscribe(response =>{this.returnGame = response;
+    if(response){
+      console.log(this.returnGame);
+    }});
+ }
+ postGame(){
+
  }
  
 

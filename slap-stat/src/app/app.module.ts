@@ -47,7 +47,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponentComponent },
       { path: 'register-team', component: TeamComponentComponent },
-      { path: 'game', component: GameComponent},
+      { path: 'game/:id/:teamname', component: GameComponent},
       { path: 'playerhome', component: PlayerHomeComponent},
       { path: 'coachhome', component: CoachHomeComponent},
       { path: 'playerprofile', component: PlayerProfileComponent},

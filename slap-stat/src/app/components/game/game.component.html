@@ -1,6 +1,24 @@
 
+<div >
+  <div>
+    <div style="float: left;">
+      <h1>{{dataSource[0].teamN}} vs  </h1>
+    </div>
+    <div >
+      <mat-form-field style="margin-left: 20px;" appearance="fill">
+        <mat-label>Opponent Name</mat-label>
+        <input appearance="fill" matInput placeholder="Opponent Name" type="text" [(ngModel)]="oppName">
+      </mat-form-field>
+    </div> 
 
-<div class="container">
+  </div>
+  <div>
+    <h1>{{tScore}}     -       {{oScore}}</h1>
+    
+  </div>
+</div>
+
+<div style="margin-top: 20px;" class="container">
   <div class="row">
     
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -48,7 +66,7 @@
         <ng-container matColumnDef="faceoff_win">
             <th mat-header-cell *matHeaderCellDef> Faceoff Wins </th>
             <td mat-cell *matCellDef="let element"> 
-              <button mat-button (click)="printHits(element)">{{element.faceoff_win}} </button>
+              <button mat-button (click)="addFWin(element)">{{element.faceoff_win}} </button>
             </td>
           </ng-container>
 
@@ -56,7 +74,7 @@
            <ng-container matColumnDef="faceoff_loss">
             <th mat-header-cell *matHeaderCellDef> Faceoff Losses </th>
             <td mat-cell *matCellDef="let element">
-              <button mat-button (click)="printHits(element)">{{element.faceoff_loss}} </button>
+              <button mat-button (click)="addFLoss(element)">{{element.faceoff_loss}} </button>
             </td>
           </ng-container>
     
@@ -65,11 +83,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
   
-    <div id="rink">
+    <div id="rink" style="float: right;">
       <img id="rink-img" src="assets/img/rink.jpg"  (click)="getCoord($event)"/>
     </div>
-    <div>
-      <button (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
+    <div style="margin-top: 20px;">
+      <button style="margin-right: 20px;" (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
+      <button (click) = "incrOppScore()"  mat-raised-button color="warn">Add Opponent Goal</button>
     </div>
     <div style="margin-top:10px;" *ngIf = "goalInput">
       <div style="margin-left:10px;" >
@@ -93,5 +112,6 @@
 
     </div>
   </div>
+  <button style="margin-top: 20px;" (click) = "submitGame()"  mat-raised-button color="accent">Submit Game</button>
 
   
