@@ -55,4 +55,13 @@ urlpatterns=[
     #Accept all requests to get allPersonnal
     url(r'^allpersonnal/$', views.allPersonnalAPI),
     url(r'^allpersonnal/([^\s]+)$', views.allPersonnalAPI ),
+
+    #Accept all requests to get allPersonnal
+    url(r'^updateteam/$', views.updateTeamAPI),
+    url(r'^updateteam/([^\s]+)$', views.updateTeamAPI ),
+
+    #Accept all requests to get allPersonnal
+    url(r'^updateplayer/$', views.updatePlayerAPI),
+    url(r'^updateplayer/([^\s]+)$', views.updatePlayerAPI),
+
 ]
