@@ -53,6 +53,7 @@ export class GameComponent implements OnInit {
   combined: PlayersInfo[] = [];
   returnGame: any =[];
   returnPlayer: any =[];
+  plottedShots: any = [];
   teamID: any;
   teamName: any = '';
   oppName: string = '';
@@ -126,11 +127,45 @@ export class GameComponent implements OnInit {
     }
   }
   //This grabs the coordinate when the picture is clicked 
-  getCoord(event : any){
+  plotShot(event : any){
     var x = event.clientX;
     var y = event.clientY;
+    
+    const shotPoint = document.createElement("button");
+    shotPoint.classList.add('dot');
+    
+    var xCoord = '';
+    var yCoord = '';
+    xCoord += x;
+    yCoord+= y;
+    xCoord += 'px';
+    yCoord += 'px';
+    shotPoint.style.setProperty('--x', `${xCoord}`);
+    shotPoint.style.setProperty('--y', `${yCoord}`);
+    var pNumber = prompt('Please enter the number of the player that took the shot');
+    
+    document.body.appendChild(shotPoint);
+    var shot: any = {
+      shotElement: shotPoint,
+      x: x,
+      y: y,
+      playerNumber: parseInt(String(pNumber))
+    }
+    for(let i = 0;i<this.dataSource.length;i++){
+      if(shot.playerNumber == this.dataSource[i].number){
+        this.dataSource[i].shots++;
+      }
+    }
+    this.plottedShots.push(shot);
+    
     console.log(x);
     console.log(y);
+ }
+ removeShot(){
+  if(this.plottedShots.length>0){
+    var undoShot = this.plottedShots.pop();
+    document.body.removeChild(undoShot.shotElement);
+  }
  }
 
  printHits(item: any){
@@ -146,6 +181,7 @@ export class GameComponent implements OnInit {
  addFLoss(item: any){
   item.faceoff_loss++;
 }
+
 
  onGoal(){
    this.goalInput = !this.goalInput;
@@ -224,6 +260,7 @@ export class GameComponent implements OnInit {
     });
 
   }
+  
   updateTeamStats(){
     var teamStats: any = {
       Team_ID: this.teamID,

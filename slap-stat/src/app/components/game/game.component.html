@@ -84,7 +84,7 @@
       </table>
   
     <div id="rink" style="float: right;">
-      <img id="rink-img" src="assets/img/rink.jpg"  (click)="getCoord($event)"/>
+      <img id="rink-img" src="assets/img/rink.jpg"  (click)="plotShot($event)"/>
     </div>
     <div style="margin-top: 20px;">
       <button style="margin-right: 20px;" (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
@@ -107,11 +107,13 @@
       </div>
       <div>
         <button (click) = "submitGoal()"  mat-raised-button color="primary">Submit</button>
+        
       </div>
     </div>
 
     </div>
   </div>
   <button style="margin-top: 20px;" (click) = "submitGame()"  mat-raised-button color="accent">Submit Game</button>
+  <button (click) = "removeShot()">undo</button>
 
   
