@@ -82,5 +82,8 @@ export class CoachHomeComponent implements OnInit {
     //this.router.navigate(['/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name]);
     this.auth.routeNav('/leaderboard/'+this.team.team_id.toString()+'/'+this.team.name)
   }
+  routeGame(){
+    this.auth.routeNav('/game/'+this.team.team_id.toString()+'/'+this.team.name)
+  }
 
 }

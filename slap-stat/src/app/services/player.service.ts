@@ -16,7 +16,7 @@ export class PlayerService {
   }
 
   putPlayer(val:any){
-    return this.http.put(this.APIUrl + 'player/',val);
+    return this.http.put(this.APIUrl + 'updateplayer/',val);
   }
 
   deletePlayer(val:any){

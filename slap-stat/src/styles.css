@@ -43,5 +43,16 @@ a {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 */
+.dot{
+	position: absolute;
+	top: var(--y);
+	left: var(--x);
+	height: 15px;
+	width: 3px;
+	background-color: red;
+	border-radius: 50%;
+	display: inline-block;
+  }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
