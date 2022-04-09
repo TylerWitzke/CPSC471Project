@@ -98,3 +98,6 @@ class Admin(models.Model):
     Email = models.CharField(primary_key=True, max_length=100)
     Password = models.CharField(max_length=100)
 
+class Team_Logs(models.Model):
+    Shot_ID = models.ForeignKey(Shot, on_delete=models.CASCADE, db_column='Shot_ID')
+    Team_ID = models.ForeignKey(Team, on_delete=models.CASCADE, db_column='Team_ID')

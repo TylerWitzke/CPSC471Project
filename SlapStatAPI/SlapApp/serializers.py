@@ -82,3 +82,7 @@ class AdminSerializer(serializers.ModelSerializer):
         model = Admin
         fields = ('Email', 'Password')
 
+class Team_LogsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team_Logs
+        fields = ('Shot_ID', 'Team_ID')

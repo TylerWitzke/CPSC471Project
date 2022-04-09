@@ -205,7 +205,7 @@ def shotApi(request, shotid=0):
         shot_serializer = ShotSerializer(data=shot_data)
         if shot_serializer.is_valid():
             shot_serializer.save()
-            return JsonResponse("Added Successfully!", safe=False)
+            return JsonResponse(shot_serializer.data, safe=False)
         return JsonResponse("Failed to Add", safe=False)
 
 
@@ -330,3 +330,60 @@ def updatePlayerAPI(request, email=''):
             team_stats_serializer.save() 
             return JsonResponse(team_stats_serializer.data) 
         return JsonResponse("Failed to Update", safe=False)
+
+
+#This is the API for Game_Sheet table in the database
+@csrf_exempt
+def game_logsApi(request, gameid=0):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        game_log = Game_Logs.objects.filter(Game_ID=gameid)
+        game_logs_serializer = Game_LogsSerializer(game_log, many=True)
+        return JsonResponse(game_logs_serializer.data, safe=False)
+
+    #Post request for Team_Stats
+    elif request.method=='POST':
+        game_log_data=JSONParser().parse(request)
+        game_log_serializer = Game_LogsSerializer(data=game_log_data)
+        if game_log_serializer.is_valid():
+            game_log_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add", safe=False)
+
+
+        #This is the API for Game_Sheet table in the database
+@csrf_exempt
+def takesApi(request, email=''):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        take = Takes.objects.filter(Email=email)
+        takes_serializer = TakesSerializer(take, many=True)
+        return JsonResponse(takes_serializer.data, safe=False)
+
+    #Post request for Team_Stats
+    elif request.method=='POST':
+        take_data=JSONParser().parse(request)
+        take_serializer = TakesSerializer(data=take_data)
+        if take_serializer.is_valid():
+            take_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add", safe=False)
+
+
+        #This is the API for Team_Logs table in the database
+@csrf_exempt
+def team_logsApi(request, teamid=0):
+    #Get request for PlayerStats Method
+    if request.method =='GET':
+        team_log = Team_Logs.objects.filter(Team_ID=teamid)
+        team_logs_serializer = Team_LogsSerializer(team_log, many=True)
+        return JsonResponse(team_logs_serializer.data, safe=False)
+
+    #Post request for Team_Stats
+    elif request.method=='POST':
+        team_log_data=JSONParser().parse(request)
+        team_log_serializer = Team_LogsSerializer(data=team_log_data)
+        if team_log_serializer.is_valid():
+            team_log_serializer.save()
+            return JsonResponse("Added Successfully!", safe=False)
+        return JsonResponse("Failed to Add", safe=False)

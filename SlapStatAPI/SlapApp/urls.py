@@ -64,4 +64,16 @@ urlpatterns=[
     url(r'^updateplayer/$', views.updatePlayerAPI),
     url(r'^updateplayer/([^\s]+)$', views.updatePlayerAPI),
 
+    #Accept all requests to get allPersonnal
+    url(r'^gamelogs/$', views.game_logsApi),
+    url(r'^gamelogs/([^\s]+)$', views.game_logsApi),
+
+    #Accept all requests to get takes
+    url(r'^takes/$', views.takesApi),
+    url(r'^takes/([^\s]+)$', views.takesApi),
+
+    #Accept all requests to get takes
+    url(r'^teamlogs/$', views.team_logsApi),
+    url(r'^teamlogs/([^\s]+)$', views.team_logsApi),
+
 ]
