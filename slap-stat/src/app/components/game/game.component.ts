@@ -75,6 +75,11 @@ export class GameComponent implements OnInit {
     console.log(this.dataSource);
     this.teamName = this.activatedRoute.snapshot.paramMap.get('teamname');
     this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
+    var bruh = document.getElementById('rink-img');
+    
+    
+    console.log(bruh?.offsetTop);
+    console.log(bruh?.offsetLeft);
     this.grabPlayers();
   }
   grabPlayers(){
