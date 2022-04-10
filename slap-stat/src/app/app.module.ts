@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { GamehubComponent } from './components/gamehub/gamehub.component';
 import { GameViewComponent } from './components/game-view/game-view.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,6 @@ import { GameViewComponent } from './components/game-view/game-view.component';
     ]),
   ],
   providers: [PlayerAuthenticationService, CoachAuthenticationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, SharedService]
 })
 export class AppModule { }

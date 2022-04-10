@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Player } from '../app.component';
+import { AppComponent, Player } from '../app.component';
 import { HttpClient } from '@angular/common/http';
 import { delay, Observable } from 'rxjs';
 import { PlayerService } from './player.service';
 import { PersonnalService } from './personnal.service';
 import { Router } from '@angular/router';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class PlayerAuthenticationService {
   }
   players:any = []
   personnals:any = []
-  constructor(private playerService: PlayerService, private personnalService: PersonnalService,private router: Router) { }
+  constructor(private playerService: PlayerService, private personnalService: PersonnalService,private router: Router, public share: SharedService) { }
 
   signIn(email: string, password: string):void{
     this.tempPassword = password;
@@ -82,6 +83,7 @@ export class PlayerAuthenticationService {
       this.player.position = this.players[0].Position;
       this.signedIn = true;
       // this.router.navigate(['/playerhome']);
+      this.share.loggedin = true;
       this.routeNav('playerhome')
       
   }
