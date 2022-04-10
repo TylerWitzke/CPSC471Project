@@ -387,3 +387,13 @@ def team_logsApi(request, teamid=0):
             team_log_serializer.save()
             return JsonResponse("Added Successfully!", safe=False)
         return JsonResponse("Failed to Add", safe=False)
+
+
+#This is the API for Game table in the database
+@csrf_exempt
+def allgameApi(request, teamid=0):
+    #Get request for Game Method
+    if request.method =='GET':
+        game = Game.objects.filter(Team_ID=teamid)
+        games_serializer = GameSerializer(game, many=True)
+        return JsonResponse(games_serializer.data, safe=False)

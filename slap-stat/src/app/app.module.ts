@@ -20,6 +20,7 @@ import { CoachAuthenticationService } from './services/coach-authentication.serv
 import { PlayerAuthenticationService } from './services/player-authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { GamehubComponent } from './components/gamehub/gamehub.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
     CoachHomeComponent,
     PlayerProfileComponent,
     CoachProfileComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    GamehubComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
       { path: 'coachhome', component: CoachHomeComponent},
       { path: 'playerprofile', component: PlayerProfileComponent},
       { path: 'coachprofile', component: CoachProfileComponent},
-      { path: 'leaderboard/:id/:teamname', component: LeaderboardComponent}
+      { path: 'leaderboard/:id/:teamname', component: LeaderboardComponent},
+      { path: 'gamehub/:teamid', component: GamehubComponent }
     ]),
   ],
   providers: [PlayerAuthenticationService, CoachAuthenticationService],
