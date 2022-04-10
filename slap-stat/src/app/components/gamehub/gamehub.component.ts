@@ -5,6 +5,7 @@ import { TeamService } from 'src/app/services/team.service';
 
 
 export interface PeriodicElement {
+  date: string,
   teamname: string,
   opponentname: string;
   wlt: string;
@@ -14,6 +15,7 @@ export interface PeriodicElement {
   opponentshots: number;
   hits: number;
   faceoff: number;
+  gameid: number;
 }
 
 
@@ -24,7 +26,7 @@ export interface PeriodicElement {
   styleUrls: ['./gamehub.component.css']
 })
 export class GamehubComponent implements OnInit {
-  displayedColumns: string[] = ['opponentname', 'wlt', 'goalsfor', 'goalsagainst', 'teamshots',
+  displayedColumns: string[] = ['date','opponentname', 'wlt', 'goalsfor', 'goalsagainst', 'teamshots',
                                   'opponentshots', 'hits', 'faceoff'];
   teamID: any;
   allGames: any;
@@ -67,6 +69,7 @@ export class GamehubComponent implements OnInit {
   populateGameHub(){
     for(var i = 0; i < this.allGames.length; i++){
       var temp: PeriodicElement = {
+        date: this.allGames[i].Date,
         teamname: this.teamname,
         opponentname: this.allGames[i].Opponent,
         wlt: '',
@@ -75,7 +78,8 @@ export class GamehubComponent implements OnInit {
         teamshots: this.gameSheets[i].Team_shots,
         opponentshots: this.gameSheets[i].Opponent_shots,
         hits: this.gameSheets[i].Team_hits,
-        faceoff: Math.trunc(100*parseInt(String(this.gameSheets[i].F_wins))/(parseInt(String(this.gameSheets[i].F_wins))+parseInt(String(this.gameSheets[i].F_losses)))) 
+        faceoff: Math.trunc(100*parseInt(String(this.gameSheets[i].F_wins))/(parseInt(String(this.gameSheets[i].F_wins))+parseInt(String(this.gameSheets[i].F_losses)))),
+        gameid: this.allGames[i].Game_ID  
        }
 
        if(temp.goalsfor > temp.goalsagainst) temp.wlt = "Win";
@@ -84,6 +88,10 @@ export class GamehubComponent implements OnInit {
 
        this.gameHub.push(temp);
     }
+  }
+
+  routeToGame(elem:any){
+    console.log(elem.gameid);
   }
 
 

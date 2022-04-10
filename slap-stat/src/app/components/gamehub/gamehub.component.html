@@ -2,11 +2,18 @@
 <div class="container">
     <div class="row">
         <table mat-table [dataSource]="gameHub" class="mat-elevation-z8">
+
+            <!-- Name Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-button mat-cell *matCellDef="let element" color ="#0000FF"> {{element.date}} </td>
+          </ng-container>
        
           <!-- Name Column -->
           <ng-container matColumnDef="opponentname">
             <th mat-header-cell *matHeaderCellDef> Opponent Name </th>
-            <td mat-button mat-cell *matCellDef="let element" color ="#0000FF"> {{element.opponentname}} </td>
+            <td mat-button mat-cell *matCellDef="let element" color ="#0000FF">
+                <button mat-button (click)="routeToGame(element)" >{{element.opponentname}}</button> </td>
           </ng-container>
         
           <!-- Goal Column -->
