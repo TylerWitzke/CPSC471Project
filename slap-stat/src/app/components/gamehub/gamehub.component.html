@@ -1,0 +1,59 @@
+<h1>{{gameHub[0].teamname}}</h1>
+<div class="container">
+    <div class="row">
+        <table mat-table [dataSource]="gameHub" class="mat-elevation-z8">
+       
+          <!-- Name Column -->
+          <ng-container matColumnDef="opponentname">
+            <th mat-header-cell *matHeaderCellDef> Opponent Name </th>
+            <td mat-button mat-cell *matCellDef="let element" color ="#0000FF"> {{element.opponentname}} </td>
+          </ng-container>
+        
+          <!-- Goal Column -->
+          <ng-container matColumnDef="wlt">
+            <th mat-header-cell *matHeaderCellDef> Win/Tie/Loss </th>
+            <td mat-cell *matCellDef="let element"> {{element.wlt}} </td>
+          </ng-container>
+        
+          <!-- Assist Column -->
+          <ng-container matColumnDef="goalsfor">
+            <th mat-header-cell *matHeaderCellDef> Team Goals </th>
+            <td mat-cell *matCellDef="let element"> {{element.goalsfor}} </td>
+          </ng-container>
+      
+          <!-- Shots Column -->
+          <ng-container matColumnDef="goalsagainst">
+              <th mat-header-cell *matHeaderCellDef> Opponent Goals </th>
+              <td mat-cell *matCellDef="let element"> {{element.goalsagainst}} </td>
+            </ng-container>
+      
+            <!-- Hits Column -->
+          <ng-container matColumnDef="teamshots">
+              <th mat-header-cell *matHeaderCellDef> Team Shots </th>
+              <td mat-cell *matCellDef="let element"> {{element.teamshots}} </td>
+            </ng-container>
+
+              <!-- Hits Column -->
+          <ng-container matColumnDef="opponentshots">
+            <th mat-header-cell *matHeaderCellDef> Opponent Shots </th>
+            <td mat-cell *matCellDef="let element"> {{element.opponentshots}} </td>
+          </ng-container>
+
+             <!-- Hits Column -->
+             <ng-container matColumnDef="hits">
+                <th mat-header-cell *matHeaderCellDef> Hits </th>
+                <td mat-cell *matCellDef="let element"> {{element.hits}} </td>
+              </ng-container>
+      
+             <!-- Faceoff Percentage Column -->
+          <ng-container matColumnDef="faceoff">
+              <th mat-header-cell *matHeaderCellDef> Faceoff% </th>
+              <td mat-cell *matCellDef="let element"> {{element.faceoff}}%</td>
+            </ng-container>
+      
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>

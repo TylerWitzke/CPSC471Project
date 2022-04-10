@@ -76,4 +76,7 @@ urlpatterns=[
     url(r'^teamlogs/$', views.team_logsApi),
     url(r'^teamlogs/([^\s]+)$', views.team_logsApi),
 
+    #Accept all requests to get takes
+    url(r'^allgame/([^\s]+)$', views.allgameApi),
+
 ]

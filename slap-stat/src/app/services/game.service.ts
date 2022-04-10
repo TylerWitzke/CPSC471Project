@@ -19,4 +19,12 @@ export class GameService {
   deleteGame(id:any){
     return this.http.delete(this.APIUrl + 'game/'+id);
   }
+
+  getAllGame(id:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl +'allgame/'+id);
+  }
+
+  getGameSheet(gameid:any):Observable<any>{
+    return this.http.get<any>(this.APIUrl +'game_sheet/'+gameid);
+  }
 }
