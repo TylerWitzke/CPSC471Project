@@ -19,6 +19,8 @@ export class LoginComponentComponent implements OnInit {
   constructor(private playerAuth: PlayerAuthenticationService, private coachAuth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
+    this.playerAuth.signedIn = false;
+    this.coachAuth.signedIn = false;
   }
   togglePlayerMode(){
     this.mode = 'Player';

@@ -45,6 +45,7 @@ export class LeaderboardComponent implements OnInit {
   populateArray1: boolean = false;
   populateArray2: boolean = false;
   combined: PlayersInfo[] = []
+  coachsignedin: boolean = false;
 
  
   constructor(private player: PlayerService, private activatedRoute: ActivatedRoute, 
@@ -52,6 +53,7 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     
+    this.coachsignedin = this.coachAuth.signedIn;
     this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
     this.teamName = this.activatedRoute.snapshot.paramMap.get('teamname');
     console.log(this.teamID);
