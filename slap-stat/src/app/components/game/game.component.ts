@@ -8,6 +8,7 @@ import { GameSheetService } from 'src/app/services/game-sheet.service';
 import { TeamStatsService } from 'src/app/services/team-stats.service';
 import { PlayerStatsService } from 'src/app/services/player-stats.service';
 import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
+import { ShotService } from 'src/app/services/shot.service';
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -21,6 +22,7 @@ export interface PeriodicElement {
   teamN: string;
   
 }
+
 export interface PlayersInfo {
   
   number: number;
@@ -43,6 +45,7 @@ export class GameComponent implements OnInit {
   displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff_win', 'faceoff_loss'];
   dataSource = ELEMENT_DATA;
    i:number = -1;
+   shotIncrement: number = 0;
   goalInput : boolean =  false;
   goalNumber : string = '';
   assist1Number: string = '';
@@ -52,14 +55,19 @@ export class GameComponent implements OnInit {
   personnalList: any = [];
   combined: PlayersInfo[] = [];
   returnGame: any =[];
+  returnShot: any ;
   returnPlayer: any =[];
   plottedShots: any = [];
   teamID: any;
+  firstShot: boolean = true;
+  rinkPositionX: number = 0;
+  rinkPositionY: number = 0;
   teamName: any = '';
   oppName: string = '';
   tScore: number = 0;
   oScore: number = 0;
   gameId: string = '';
+  currentShot: any;
   minorStats: any = {
     shots: 0,
     hits: 0,
@@ -68,18 +76,15 @@ export class GameComponent implements OnInit {
   }
   constructor(private playerServ: PlayerService, private activatedRoute: ActivatedRoute,
      private personServ: PersonnalService, private gameServ: GameService, private sheetServe: GameSheetService,
-      private tStat: TeamStatsService, private pStat: PlayerStatsService, private auth: CoachAuthenticationService) { }
+      private tStat: TeamStatsService, private pStat: PlayerStatsService, private auth: CoachAuthenticationService,
+      private shotServe: ShotService) { }
 
   ngOnInit(): void {
     ELEMENT_DATA = [];
     console.log(this.dataSource);
     this.teamName = this.activatedRoute.snapshot.paramMap.get('teamname');
     this.teamID = this.activatedRoute.snapshot.paramMap.get('id');
-    var bruh = document.getElementById('rink-img');
     
-    
-    console.log(bruh?.offsetTop);
-    console.log(bruh?.offsetLeft);
     this.grabPlayers();
   }
   grabPlayers(){
@@ -133,8 +138,19 @@ export class GameComponent implements OnInit {
   }
   //This grabs the coordinate when the picture is clicked 
   plotShot(event : any){
-    var x = event.clientX;
-    var y = event.clientY;
+    if(this.firstShot){
+      var rink = document.getElementById('rink-img');
+      console.log(rink?.offsetLeft);
+      console.log(rink?.offsetTop);
+      this.rinkPositionX = parseInt(String(rink?.offsetLeft));
+      this.rinkPositionY = parseInt(String(rink?.offsetTop))
+      this.firstShot = false;
+    }
+    var x = event.clientX+window.scrollX;
+    var y = event.clientY+window.scrollY;
+    console.log(x);
+    console.log(y);
+    
     
     const shotPoint = document.createElement("button");
     shotPoint.classList.add('dot');
@@ -152,8 +168,8 @@ export class GameComponent implements OnInit {
     document.body.appendChild(shotPoint);
     var shot: any = {
       shotElement: shotPoint,
-      x: x,
-      y: y,
+      x: x-this.rinkPositionX,
+      y: y-this.rinkPositionY,
       playerNumber: parseInt(String(pNumber))
     }
     for(let i = 0;i<this.dataSource.length;i++){
@@ -163,8 +179,6 @@ export class GameComponent implements OnInit {
     }
     this.plottedShots.push(shot);
     
-    console.log(x);
-    console.log(y);
  }
  removeShot(){
   if(this.plottedShots.length>0){
@@ -224,6 +238,11 @@ export class GameComponent implements OnInit {
    this.tScore++;
  }
  submitGame(){
+  var rink = document.getElementById('rink-img');
+  console.log(rink?.offsetLeft);
+  console.log(rink?.offsetTop);
+  this.rinkPositionX = parseInt(String(rink?.offsetLeft));
+  this.rinkPositionY = parseInt(String(rink?.offsetTop));
   var date = new Date();
   var s = date.toISOString().substring(0,10);
  
@@ -258,13 +277,14 @@ export class GameComponent implements OnInit {
       F_losses: this.minorStats.fLoss
     }
     this.sheetServe.addGame_Sheet(gameSheet).subscribe(res=>{
-      alert(res.toString());
+      alert(res.toString()+'sheet');
       if(res){
           this.updateTeamStats();
       }
     });
 
   }
+  
   
   updateTeamStats(){
     var teamStats: any = {
@@ -285,9 +305,81 @@ export class GameComponent implements OnInit {
     }
     console.log(teamStats);
     this.tStat.putTeamStats(this.teamID,teamStats).subscribe(res=>{
-      alert(res.toString());
+      alert(res.toString()+'teamStats');
       if(res){
-          this.updatePlayers();
+          this.addShots();
+      }
+    });
+  }
+  addShots(){
+   
+    
+    if(this.plottedShots.length==0){
+      this.updatePlayers();
+      return;
+    }
+    console.log('shots go');
+    
+    
+    
+    console.log(typeof this.plottedShots[this.plottedShots.length-1].x);
+    console.log(this.plottedShots[this.plottedShots.length-1].y);
+      var shot: any = {
+        X_location: this.plottedShots[this.plottedShots.length-1].x,
+        Y_location: this.plottedShots[this.plottedShots.length-1].y
+      }
+      console.log(shot);
+      
+      
+      this.shotServe.addShot(shot).subscribe(response =>{this.returnShot = response;
+        if(response){
+          this.addGameShot();
+        }});
+        
+  }
+  addGameShot(){
+    console.log(this.returnShot);
+    
+    var gameShot = {
+      Shot_ID: this.returnShot.Shot_ID,
+      Game_ID: this.returnGame.Game_ID
+    }
+    this.shotServe.addGameLogsShot(gameShot).subscribe(res=>{
+      alert(res.toString()+'gameShot');
+      if(res){
+        this.addTeamShot();
+      }
+    });
+  }
+  addTeamShot(){
+    var teamShot = {
+      Shot_ID: this.returnShot.Shot_ID,
+      Team_ID: this.teamID
+    }
+    this.shotServe.addTeamLogsShot(teamShot).subscribe(res=>{
+      alert(res.toString()+'teamShot');
+      if(res){
+        this.addPlayerShot();
+      }
+    });
+  }
+  addPlayerShot(){
+    var email = '';
+    for(let i = 0;i<this.dataSource.length;i++){
+      if(this.plottedShots[this.shotIncrement].playerNumber == this.dataSource[i].number){
+        email = this.dataSource[i].email;
+      }
+    }
+    var playerShot = {
+      Shot_ID: this.returnShot.Shot_ID,
+      Email: email
+    }
+    this.removeShot();
+    this.shotIncrement++;
+    this.shotServe.addTakesShot(playerShot).subscribe(res=>{
+      alert(res.toString()+'playerShot');
+      if(res){
+        this.addShots();
       }
     });
   }

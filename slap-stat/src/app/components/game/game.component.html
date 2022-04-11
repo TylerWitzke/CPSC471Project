@@ -1,5 +1,5 @@
 
-<div >
+<div id="scoreboard" >
   <div>
     <div style="float: left;">
       <h1>{{dataSource[0].teamN}} vs  </h1>
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<div style="margin-top: 20px;" class="container">
+<div id="table" style="margin-top: 20px;" class="container">
   <div class="row">
     
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -83,34 +83,35 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
   
-    <div id="rink" style="float: right;">
-      <img id="rink-img" src="assets/img/rink.jpg"  (click)="plotShot($event)" height="400px" width="800px"/>
-    </div>
-    <div style="margin-top: 20px;">
-      <button style="margin-right: 20px;" (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
-      <button (click) = "incrOppScore()"  mat-raised-button color="warn">Add Opponent Goal</button>
-    </div>
-    <div style="margin-top:10px;" *ngIf = "goalInput">
-      <div style="margin-left:10px;" >
-        <mat-form-field class = "update-field" appearance="fill">
-          <mat-label>Number of Goal Scorer</mat-label>
-          <input appearance="fill" matInput placeholder="Goal Scorer" type="text" [(ngModel)]="goalNumber">
-        </mat-form-field>
-        <mat-form-field class = "update-field" appearance="fill">
-          <mat-label>Number of Assist</mat-label>
-          <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist1Number">
-        </mat-form-field>
-        <mat-form-field class = "update-field" appearance="fill">
-          <mat-label>Number of Assist</mat-label>
-          <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist2Number">
-        </mat-form-field>
-      </div>
-      <div>
-        <button (click) = "submitGoal()"  mat-raised-button color="primary">Submit</button>
-        
-      </div>
-    </div>
+    
 
+    </div>
+  </div>
+  <div id="rink" style="float: right;">
+    <img id="rink-img" src="assets/img/rink.jpg"  (click)="plotShot($event)" height="500px" width="800px"/>
+  </div>
+  <div style="margin-top: 20px;">
+    <button style="margin-right: 20px;" (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
+    <button (click) = "incrOppScore()"  mat-raised-button color="warn">Add Opponent Goal</button>
+  </div>
+  <div style="margin-top:10px;" *ngIf = "goalInput">
+    <div style="margin-left:10px;" >
+      <mat-form-field class = "update-field" appearance="fill">
+        <mat-label>Number of Goal Scorer</mat-label>
+        <input appearance="fill" matInput placeholder="Goal Scorer" type="text" [(ngModel)]="goalNumber">
+      </mat-form-field>
+      <mat-form-field class = "update-field" appearance="fill">
+        <mat-label>Number of Assist</mat-label>
+        <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist1Number">
+      </mat-form-field>
+      <mat-form-field class = "update-field" appearance="fill">
+        <mat-label>Number of Assist</mat-label>
+        <input appearance="fill" matInput placeholder="Assist" type="text" [(ngModel)]="assist2Number">
+      </mat-form-field>
+    </div>
+    <div>
+      <button (click) = "submitGoal()"  mat-raised-button color="primary">Submit</button>
+      
     </div>
   </div>
   <button style="margin-top: 20px;" (click) = "submitGame()"  mat-raised-button color="accent">Submit Game</button>

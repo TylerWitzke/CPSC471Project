@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from 'src/app/app.component';
 import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
+import { TeamService } from 'src/app/services/team.service';
 @Component({
   selector: 'app-player-profile',
   templateUrl: './player-profile.component.html',
@@ -8,6 +9,7 @@ import { PlayerAuthenticationService } from 'src/app/services/player-authenticat
 })
 export class PlayerProfileComponent implements OnInit {
   editMode: boolean = false;
+  teamName: any;
   editToggleString: string = 'Edit Profile';
   player: Player = {
     first_name: '',
@@ -33,7 +35,7 @@ export class PlayerProfileComponent implements OnInit {
     position: '',
     team_id: 0
   }
-  constructor(private auth: PlayerAuthenticationService) { }
+  constructor(private auth: PlayerAuthenticationService, private team: TeamService) { }
 
   ngOnInit(): void {
     this.auth.signIn('dillon.matthews@gmail.com','peepeepoopoo');
@@ -49,6 +51,12 @@ export class PlayerProfileComponent implements OnInit {
     this.editplayer.position = this.player.position;
     this.editplayer.team_id = this.player.team_id;
 
+    this.team.getTeam(this.editplayer.team_id).subscribe(response =>{
+      this.teamName = response[0].Name;
+      if(response){
+        console.log(this.teamName)
+      }});
+
   }
   onEdit(){
     this.editMode = !this.editMode;
@@ -62,4 +70,12 @@ export class PlayerProfileComponent implements OnInit {
 
   }
 
+  routeLeader(){
+    console.log("Here");
+    this.auth.routeNav('/leaderboard/'+this.editplayer.team_id.toString()+'/'+this.teamName)
+  }
+
+  routeHome(){
+    this.auth.routeNav('playerhome')
+  }
 }
