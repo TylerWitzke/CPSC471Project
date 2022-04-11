@@ -35,11 +35,13 @@ export class GamehubComponent implements OnInit {
   gameSheets: any = [];
   gameHub: PeriodicElement[] = [];
   teamname: any;
+  coachsignedin: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private gameserv: GameService, private teamserv: TeamService,
                 private playerAuth: PlayerAuthenticationService, private coachAuth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
+    this.coachsignedin = this.coachAuth.signedIn;
     this.teamID = this.activatedRoute.snapshot.paramMap.get('teamid');
 
     //Get players stats
@@ -92,6 +94,9 @@ export class GamehubComponent implements OnInit {
        this.gameHub.push(temp);
     }
     this.gameHub.reverse();
+  }
+  routeNewGame(){
+    this.coachAuth.routeNav('/game/'+this.teamID.toString()+'/'+this.teamname)
   }
 
   routeToGame(elem:any){

@@ -1,6 +1,9 @@
 <div class="topnav">
     
   <a button (click)="routeHome()">Home Page</a>
+  <div *ngIf="coachsignedin == true">
+    <a button (click) = 'routeNewGame()'>New Game</a>
+  </div>
   <a button (click)="routeLeader()">Team Leader Board</a>
   <a button (click)="routeProfile()">Profile</a>
   <a button >Game Hub</a>

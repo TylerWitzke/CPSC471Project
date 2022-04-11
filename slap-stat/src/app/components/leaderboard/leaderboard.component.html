@@ -2,7 +2,7 @@
     
   <a button (click) = "goHome()">Home Page</a>
 <div *ngIf="coachsignedin == true">
-<a button>New Game</a>
+<a button (click) = 'routeNewGame()'>New Game</a>
 </div>
   <a >Team Leader Board</a>
   <a button (click)="routeProfile()">Profile</a>

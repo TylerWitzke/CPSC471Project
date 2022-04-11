@@ -122,7 +122,9 @@ export class LeaderboardComponent implements OnInit {
       console.log(this.combined);
     }
   }
-
+  routeNewGame(){
+    this.coachAuth.routeNav('/game/'+this.teamID.toString()+'/'+this.teamName)
+  }
   routeProfile(){
     if(this.playerAuth.signedIn){
       this.playerAuth.routeNav('playerprofile')

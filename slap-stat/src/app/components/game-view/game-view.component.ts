@@ -20,7 +20,7 @@ export class GameViewComponent implements OnInit {
   plottedShots: any = [];
   homeaway: any;
   gameShots: any = [];
-  
+  coachsignedin: boolean = false;
   
   shots: any = [];
 
@@ -29,6 +29,7 @@ export class GameViewComponent implements OnInit {
                 private shotServe: ShotService) { }
 
   ngOnInit(): void {
+    this.coachsignedin = this.coachAuth.signedIn;
     this.gameID = this.activatedRoute.snapshot.paramMap.get('gameid');
     console.log(this.gameID);
 
@@ -122,6 +123,9 @@ export class GameViewComponent implements OnInit {
       var shot = this.plottedShots.pop();
       document.body.removeChild(shot);
     }
+  }
+  routeNewGame(){
+    this.coachAuth.routeNav('/game/'+this.team[0].Team_ID.toString()+'/'+this.team[0].Name.toString())
   }
   routeLeader(){
     console.log("Here");
