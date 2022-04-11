@@ -15,8 +15,8 @@ export class PlayerService {
     return this.http.post(this.APIUrl + 'player/',val);
   }
 
-  putPlayer(val:any){
-    return this.http.put(this.APIUrl + 'updateplayer/',val);
+  putPlayer(email: any, val:any){
+    return this.http.put(this.APIUrl + 'player/'+email,val);
   }
 
   deletePlayer(val:any){

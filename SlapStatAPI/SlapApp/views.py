@@ -58,6 +58,18 @@ def personnalApi(request, email=''):
         personnal = Personnal.objects.get(Email=email)
         personnal.delete()
         return JsonResponse("Deleted Successfully", safe=False)
+    
+    #Put method for PlayerStats
+    elif request.method == 'PUT': 
+        player_stats_data = JSONParser().parse(request)
+        player_stats = Personnal.objects.get(Email=email) 
+        player_stats_serializer = PersonnalSerializer(player_stats, data=player_stats_data) 
+        if player_stats_serializer.is_valid(): 
+            player_stats_serializer.save() 
+            return JsonResponse("Personnal Updated", safe=False) 
+        return JsonResponse("Failed to Update", safe=False) 
+
+    
 
 
 #This is the API for Coach table in the database
@@ -133,6 +145,16 @@ def playerApi(request, email=''):
         player = Player.objects.get(Email=email)
         player.delete()
         return JsonResponse("Deleted Successfully", safe=False)
+
+    #Put method for PlayerStats
+    elif request.method == 'PUT': 
+        player_stats_data = JSONParser().parse(request)
+        player_stats = Player.objects.get(Email=email) 
+        player_stats_serializer = PlayerSerializer(player_stats, data=player_stats_data) 
+        if player_stats_serializer.is_valid(): 
+            player_stats_serializer.save() 
+            return JsonResponse("Player Updated", safe=False) 
+        return JsonResponse("Failed to Update", safe=False) 
 
 
 

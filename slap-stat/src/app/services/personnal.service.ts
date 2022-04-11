@@ -17,8 +17,8 @@ export class PersonnalService {
     return this.http.post(this.APIUrl + 'personnal/',val);
   }
 
-  putPersonnal(val:any){
-    return this.http.put(this.APIUrl + 'personnal/',val);
+  putPersonnal(email: any, val:any){
+    return this.http.put(this.APIUrl + 'personnal/'+email,val);
   }
 
   deletePersonnal(val:any){
