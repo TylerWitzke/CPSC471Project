@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Coach } from '../app.component';
 import { CoachService} from './coach.service';
 import { PersonnalService } from './personnal.service';
+import { SharedService } from './shared.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +19,7 @@ export class CoachAuthenticationService {
   }
   coaches:any = []
   personnals:any = []
-  constructor(private router: Router, private coachService: CoachService, private personnalService: PersonnalService) { }
+  constructor(private router: Router, private coachService: CoachService, private personnalService: PersonnalService, public share: SharedService) { }
   signIn(email: string, password: string): void{
     this.tempPassword = password;
     
@@ -62,6 +63,7 @@ export class CoachAuthenticationService {
     this.coach.first_name = this.personnals[0].F_Name;
     this.coach.last_name = this.personnals[0].L_Name;
     this.signedIn = true;
+    this.share.loggedin = true;
     this.router.navigate(['/coachhome']);
 
   }

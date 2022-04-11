@@ -1,0 +1,30 @@
+<html>
+<body>
+<div class="a">
+<h1 style ="font-size:60px;">{{team[0].Name}} {{gamesheet[0].Team_score}} - {{gamesheet[0].Opponent_score}} {{game[0].Opponent}}</h1>
+</div>
+
+<div class="boxleft">
+    <h1>{{team[0].Name}}</h1>
+    <p>Goals {{gamesheet[0].Team_score}}</p>
+    <p>Shots {{gamesheet[0].Team_shots}}</p>
+    <p>Hits {{gamesheet[0].Team_hits}}</p>
+    <p>Faceoff Win {{gamesheet[0].F_wins}}</p>
+    <p>Faceoff Loss {{gamesheet[0].F_losses}}</p>
+    <p>Home/Away {{game[0].HomeAway}}</p>
+</div>
+<div class="boxright">
+    <h1>{{game[0].Opponent}}</h1>
+    <p>Goals {{gamesheet[0].Opponent_score}}</p>
+    <p>Shots {{gamesheet[0].Opponent_shots}}</p>
+    <p>Faceoff Win {{gamesheet[0].F_losses}}</p>
+    <p>Faceoff Loss {{gamesheet[0].F_wins}}</p>
+</div>
+
+<div class="center" id="rink">
+    <img id="rink-img" src="assets/img/rink.jpg" height="400px" width="800px"/>
+  </div>
+
+
+</body>
+</html>

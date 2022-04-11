@@ -21,6 +21,8 @@ import { PlayerAuthenticationService } from './services/player-authentication.se
 import { HttpClientModule } from '@angular/common/http';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { GamehubComponent } from './components/gamehub/gamehub.component';
+import { GameViewComponent } from './components/game-view/game-view.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { GamehubComponent } from './components/gamehub/gamehub.component';
     PlayerProfileComponent,
     CoachProfileComponent,
     LeaderboardComponent,
-    GamehubComponent
+    GamehubComponent,
+    GameViewComponent
   ],
   imports: [
     BrowserModule,
@@ -55,10 +58,11 @@ import { GamehubComponent } from './components/gamehub/gamehub.component';
       { path: 'playerprofile', component: PlayerProfileComponent},
       { path: 'coachprofile', component: CoachProfileComponent},
       { path: 'leaderboard/:id/:teamname', component: LeaderboardComponent},
-      { path: 'gamehub/:teamid', component: GamehubComponent }
+      { path: 'gamehub/:teamid', component: GamehubComponent },
+      { path: 'game-view/:gameid', component: GameViewComponent}
     ]),
   ],
   providers: [PlayerAuthenticationService, CoachAuthenticationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, SharedService]
 })
 export class AppModule { }
