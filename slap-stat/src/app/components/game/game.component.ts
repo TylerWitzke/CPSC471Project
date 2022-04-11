@@ -9,6 +9,7 @@ import { TeamStatsService } from 'src/app/services/team-stats.service';
 import { PlayerStatsService } from 'src/app/services/player-stats.service';
 import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 import { ShotService } from 'src/app/services/shot.service';
+
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -16,6 +17,7 @@ export interface PeriodicElement {
   assists: number;
   shots: number;
   hits: number;
+  pims: number;
   faceoff_win: number;
   faceoff_loss: number;
   email: string;
@@ -42,9 +44,10 @@ var ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits', 'faceoff_win', 'faceoff_loss'];
+  displayedColumns: string[] = ['number', 'name', 'goals', 'assists', 'shots', 'hits','pims', 'faceoff_win', 'faceoff_loss'];
   dataSource = ELEMENT_DATA;
    i:number = -1;
+   returnPlaceHolder: string = '';
    shotIncrement: number = 0;
   goalInput : boolean =  false;
   goalNumber : string = '';
@@ -68,9 +71,12 @@ export class GameComponent implements OnInit {
   oScore: number = 0;
   gameId: string = '';
   currentShot: any;
+  shotsAgainst: number = 0;
+  homeStatus: string = 'A';
   minorStats: any = {
     shots: 0,
     hits: 0,
+    pims: 0,
     fWins: 0,
     fLoss: 0
   }
@@ -130,9 +136,20 @@ export class GameComponent implements OnInit {
     console.log(this.combined);
     this.popList();
   }
+  addShotAgainst(){
+    this.shotsAgainst++;
+  }
+  checkCheckBoxvalue(event: any){
+    if(event.checked){
+      this.homeStatus = 'H';
+    }
+    else{
+      this.homeStatus = 'A';
+    }
+  }
   popList(){
     for(let i = 0; i<this.combined.length;i++){
-      var element: PeriodicElement = {number: this.combined[i].number, name: this.combined[i].name, goals: 0, assists: 0, shots: 0, hits: 0, faceoff_win: 0, faceoff_loss: 0, email: this.combined[i].email, teamN: this.teamName};
+      var element: PeriodicElement = {number: this.combined[i].number, name: this.combined[i].name, goals: 0, assists: 0, shots: 0, hits: 0, faceoff_win: 0,pims: 0, faceoff_loss: 0, email: this.combined[i].email, teamN: this.teamName};
       this.dataSource.push(element);
     }
   }
@@ -163,8 +180,11 @@ export class GameComponent implements OnInit {
     yCoord += 'px';
     shotPoint.style.setProperty('--x', `${xCoord}`);
     shotPoint.style.setProperty('--y', `${yCoord}`);
-    var pNumber = prompt('Please enter the number of the player that took the shot');
     
+    var pNumber: any = prompt('Please enter the number of the player that took the shot');
+    if(String(pNumber).length == 0){
+      pNumber = this.dataSource[0].number;
+    }
     document.body.appendChild(shotPoint);
     var shot: any = {
       shotElement: shotPoint,
@@ -190,6 +210,9 @@ export class GameComponent implements OnInit {
  printHits(item: any){
    item.hits+=1;
    
+ }
+ addPIM(item: any){
+  item.pims++;
  }
  incrOppScore(){
    this.oScore++;
@@ -238,6 +261,11 @@ export class GameComponent implements OnInit {
    this.tScore++;
  }
  submitGame(){
+   if(this.oppName.length == 0){
+     this.oppName = 'untitiled opponent';
+     console.log(this.oppName);
+     
+   }
   var rink = document.getElementById('rink-img');
   console.log(rink?.offsetLeft);
   console.log(rink?.offsetTop);
@@ -248,7 +276,7 @@ export class GameComponent implements OnInit {
  
    var game: any = {
      Team_ID: this.teamID,
-     HomeAway: 'H',
+     HomeAway: this.homeStatus,
      Opponent: this.oppName,
      Date: s
    }
@@ -264,6 +292,7 @@ export class GameComponent implements OnInit {
       this.minorStats.hits += this.dataSource[i].hits;
       this.minorStats.fWins += this.dataSource[i].faceoff_win;
       this.minorStats.fLoss += this.dataSource[i].faceoff_loss;
+      this.minorStats.pims += this.dataSource[i].pims;
     }
     console.log(this.returnGame.Game_ID);
     var gameSheet: any = {
@@ -271,13 +300,13 @@ export class GameComponent implements OnInit {
       Team_score: this.tScore,
       Opponent_score: this.oScore,
       Team_shots: this.minorStats.shots,
-      Opponent_shots: 25,
+      Opponent_shots: this.shotsAgainst,
       Team_hits: this.minorStats.hits,
       F_wins: this.minorStats.fWins,
       F_losses: this.minorStats.fLoss
     }
     this.sheetServe.addGame_Sheet(gameSheet).subscribe(res=>{
-      alert(res.toString()+'sheet');
+      this.returnPlaceHolder = res.toString();
       if(res){
           this.updateTeamStats();
       }
@@ -291,9 +320,9 @@ export class GameComponent implements OnInit {
       Team_ID: this.teamID,
       Wins: 56,
       Losses: 1,
-      PIMS: 0,
+      PIMS: this.minorStats.pims,
       Shots: this.minorStats.shots,
-      Shots_against: 25
+      Shots_against: this.shotsAgainst
     }
     if(this.tScore>=this.oScore){
       teamStats.Wins = 1;
@@ -305,7 +334,7 @@ export class GameComponent implements OnInit {
     }
     console.log(teamStats);
     this.tStat.putTeamStats(this.teamID,teamStats).subscribe(res=>{
-      alert(res.toString()+'teamStats');
+      this.returnPlaceHolder = res.toString();
       if(res){
           this.addShots();
       }
@@ -345,7 +374,7 @@ export class GameComponent implements OnInit {
       Game_ID: this.returnGame.Game_ID
     }
     this.shotServe.addGameLogsShot(gameShot).subscribe(res=>{
-      alert(res.toString()+'gameShot');
+      this.returnPlaceHolder = res.toString();
       if(res){
         this.addTeamShot();
       }
@@ -357,7 +386,7 @@ export class GameComponent implements OnInit {
       Team_ID: this.teamID
     }
     this.shotServe.addTeamLogsShot(teamShot).subscribe(res=>{
-      alert(res.toString()+'teamShot');
+      this.returnPlaceHolder = res.toString();
       if(res){
         this.addPlayerShot();
       }
@@ -366,7 +395,7 @@ export class GameComponent implements OnInit {
   addPlayerShot(){
     var email = '';
     for(let i = 0;i<this.dataSource.length;i++){
-      if(this.plottedShots[this.shotIncrement].playerNumber == this.dataSource[i].number){
+      if(this.plottedShots[this.plottedShots.length-1].playerNumber == this.dataSource[i].number){
         email = this.dataSource[i].email;
       }
     }
@@ -377,7 +406,7 @@ export class GameComponent implements OnInit {
     this.removeShot();
     this.shotIncrement++;
     this.shotServe.addTakesShot(playerShot).subscribe(res=>{
-      alert(res.toString()+'playerShot');
+      this.returnPlaceHolder = res.toString();
       if(res){
         this.addShots();
       }
@@ -407,10 +436,7 @@ export class GameComponent implements OnInit {
         if(response){
           this.updatePlayers();
         }});
-    
+    alert('added successfully');
     this.auth.routeNav('coachhome');
   }
-  
- 
-
 }

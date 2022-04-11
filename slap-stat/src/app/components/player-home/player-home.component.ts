@@ -112,6 +112,7 @@ export class PlayerHomeComponent implements OnInit {
     this.team_stats.wins = this.teamStats[0].Wins;
     this.team_stats.losses = this.teamStats[0].Losses;
     this.team_stats.pims = this.teamStats[0].PIMS;
+    this.team_stats.shots = this.teamStats[0].Shots;
     this.team_stats.shotsAgainst = this.teamStats[0].Shots_against;
     console.log(this.team_stats);
   }

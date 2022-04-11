@@ -10,13 +10,22 @@
         <input appearance="fill" matInput placeholder="Opponent Name" type="text" [(ngModel)]="oppName">
       </mat-form-field>
     </div> 
+    <div style="float: right; margin-right: 100px;" >
+      <mat-checkbox (change)="checkCheckBoxvalue($event)">Home Game</mat-checkbox>
+      <p>Shots Against: {{shotsAgainst}}</p>
+      <button (click) = "addShotAgainst()">+</button>
+    </div>
+    
+
 
   </div>
   <div>
     <h1>{{tScore}}     -       {{oScore}}</h1>
     
   </div>
+  
 </div>
+
 
 <div id="table" style="margin-top: 20px;" class="container">
   <div class="row">
@@ -61,6 +70,11 @@
             <td mat-cell *matCellDef="let element"> 
               <button mat-button (click)="printHits(element)">{{element.hits}} </button> </td> 
           </ng-container>
+          <ng-container matColumnDef="pims">
+            <th mat-header-cell *matHeaderCellDef> PIMS </th>
+            <td mat-cell *matCellDef="let element"> 
+              <button mat-button (click)="addPIM(element)">{{element.pims}} </button> </td> 
+          </ng-container>
     
            <!-- Faceoff Percentage Column -->
         <ng-container matColumnDef="faceoff_win">
@@ -87,8 +101,11 @@
 
     </div>
   </div>
+  <button style="float: right;" (click) = "removeShot()" mat-raised-button color = 'warn'>undo shot</button>
   <div id="rink" style="float: right;">
+    
     <img id="rink-img" src="assets/img/rink.jpg"  (click)="plotShot($event)" height="500px" width="800px"/>
+    
   </div>
   <div style="margin-top: 20px;">
     <button style="margin-right: 20px;" (click) = "onGoal()"  mat-raised-button color="primary">{{goalCancelToggle}}</button>
@@ -115,6 +132,6 @@
     </div>
   </div>
   <button style="margin-top: 20px;" (click) = "submitGame()"  mat-raised-button color="accent">Submit Game</button>
-  <button (click) = "removeShot()">undo</button>
+  
 
   
