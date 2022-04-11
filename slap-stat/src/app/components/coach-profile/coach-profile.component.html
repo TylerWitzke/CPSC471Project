@@ -1,3 +1,11 @@
+<div class="topnav">
+  <a button (click)="routeHome()">Home Page</a>
+  <a button (click)="routeGame()">New Game</a>
+  <a button (click)="routeLeader()">Team Leader Board</a>
+  <a button >Profile</a>
+  <a button (click)="routeGameHub()">Game Hub</a>
+</div>
+
 <div class="profile">
     <h1 class="profile-title"><u>{{coach.first_name}} {{coach.last_name}}</u></h1>
     </div>
@@ -10,10 +18,6 @@
 </div>
 <div style="margin-top:10px;" *ngIf = "editMode">
     <div>
-    <mat-form-field class = "update-field" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input appearance="fill" matInput placeholder="email" type="text" [(ngModel)]="editCoach.email">
-    </mat-form-field>
     <mat-form-field class = "update-field" appearance="fill">
       <mat-label>Password</mat-label>
       <input appearance="fill" matInput placeholder="password" type="password" [(ngModel)]="editCoach.password">

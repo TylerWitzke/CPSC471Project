@@ -50,16 +50,6 @@ export class PlayerProfileComponent implements OnInit {
   ngOnInit(): void {
     this.auth.signIn('dillon.matthews@gmail.com','peepeepoopoo');
     this.player = this.auth.getProfile();
-    // this.editplayer.email = this.player.email;
-    // this.editplayer.first_name = this.player.first_name;
-    // this.editplayer.password = this.player.password;
-    // this.editplayer.last_name = this.player.last_name;
-    // this.editplayer.height = this.player.height;
-    // this.editplayer.weight = this.player.weight;
-    // this.editplayer.handness = this.player.handness;
-    // this.editplayer.number = this.player.number;
-    // this.editplayer.position = this.player.position;
-    // this.editplayer.team_id = this.player.team_id;
 
     this.team.getTeam(this.editplayer.team_id).subscribe(response =>{
       this.teamName = response[0].Name;
