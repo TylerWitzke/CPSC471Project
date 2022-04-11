@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 import { GameService } from 'src/app/services/game.service';
+import { PlayerAuthenticationService } from 'src/app/services/player-authentication.service';
 import { TeamService } from 'src/app/services/team.service';
 
 @Component({
@@ -15,7 +17,8 @@ export class GameViewComponent implements OnInit {
   team: any;
   homeaway: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private gameserv: GameService, private teamserv: TeamService) { }
+  constructor(private activatedRoute: ActivatedRoute, private gameserv: GameService, private teamserv: TeamService,
+                private playerAuth: PlayerAuthenticationService, private coachAuth: CoachAuthenticationService) { }
 
   ngOnInit(): void {
     this.gameID = this.activatedRoute.snapshot.paramMap.get('gameid');
@@ -51,5 +54,35 @@ export class GameViewComponent implements OnInit {
       }
     });
   }
+
+  routeLeader(){
+    console.log("Here");
+    this.playerAuth.routeNav('/leaderboard/'+this.team[0].Team_ID.toString()+'/'+this.team[0].Name)
+  }
+
+  routeProfile(){
+    if(this.playerAuth.signedIn){
+      this.playerAuth.routeNav('playerprofile')
+    }
+    else if(this.coachAuth.signedIn){
+      this.coachAuth.routeNav('coachprofile')
+    }
+    
+  }
+
+  routeHome(){
+    if(this.playerAuth.signedIn){
+      this.playerAuth.routeNav('playerhome')
+    }
+    else if(this.coachAuth.signedIn){
+      this.coachAuth.routeNav('coachhome')
+    }
+    
+  }
+
+  routeGameHub(){
+    this.playerAuth.routeNav('/gamehub/'+this.team[0].Team_ID.toString());
+  }
+
 
 }
