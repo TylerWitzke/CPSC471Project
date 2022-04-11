@@ -9,7 +9,7 @@ import { TeamStatsService } from 'src/app/services/team-stats.service';
 import { PlayerStatsService } from 'src/app/services/player-stats.service';
 import { CoachAuthenticationService } from 'src/app/services/coach-authentication.service';
 import { ShotService } from 'src/app/services/shot.service';
-
+import { HostListener } from '@angular/core';
 export interface PeriodicElement {
   name: string;
   number: number;
@@ -200,12 +200,29 @@ export class GameComponent implements OnInit {
     this.plottedShots.push(shot);
     
  }
+ removeAllShots(){
+  while(this.plottedShots.length>0){
+    var undoShot = this.plottedShots.pop();
+    document.body.removeChild(undoShot.shotElement);
+  }
+ }
  removeShot(){
   if(this.plottedShots.length>0){
     var undoShot = this.plottedShots.pop();
     document.body.removeChild(undoShot.shotElement);
   }
  }
+ @HostListener('window:popstate', ['$event'])
+    onPopState(event: any) {
+
+    console.log('Back button pressed');
+    this.removeAllShots();
+  }
+ goHome(){
+  this.removeAllShots();
+    this.auth.routeNav('coachhome')
+}
+ 
 
  printHits(item: any){
    item.hits+=1;
