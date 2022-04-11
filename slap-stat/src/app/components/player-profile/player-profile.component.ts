@@ -78,4 +78,8 @@ export class PlayerProfileComponent implements OnInit {
   routeHome(){
     this.auth.routeNav('playerhome')
   }
+
+  routeGame(){
+    this.auth.routeNav('/gamehub/'+this.editplayer.team_id.toString());
+  }
 }

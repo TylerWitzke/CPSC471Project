@@ -1,4 +1,11 @@
 <html>
+    <div class="topnav">
+    
+        <a button (click)="routeHome()">Home Page</a>
+        <a button (click)="routeLeader()">Team Leader Board</a>
+        <a button (click)="routeProfile()">Profile</a>
+        <a button (click)="routeGameHub()">Game Hub</a>
+      </div>
 <body>
 <div class="a">
 <h1 style ="font-size:60px;">{{team[0].Name}} {{gamesheet[0].Team_score}} - {{gamesheet[0].Opponent_score}} {{game[0].Opponent}}</h1>
