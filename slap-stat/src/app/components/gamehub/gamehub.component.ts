@@ -91,6 +91,7 @@ export class GamehubComponent implements OnInit {
 
        this.gameHub.push(temp);
     }
+    this.gameHub.reverse();
   }
 
   routeToGame(elem:any){
