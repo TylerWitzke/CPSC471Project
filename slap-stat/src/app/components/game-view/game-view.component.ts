@@ -6,7 +6,6 @@ import { PlayerAuthenticationService } from 'src/app/services/player-authenticat
 import { ShotService } from 'src/app/services/shot.service';
 import { TeamService } from 'src/app/services/team.service';
 import { HostListener } from '@angular/core';
-
 @Component({
   selector: 'app-game-view',
   templateUrl: './game-view.component.html',
@@ -21,7 +20,7 @@ export class GameViewComponent implements OnInit {
   homeaway: any;
   gameShots: any = [];
   coachsignedin: boolean = false;
-  
+  logo: any;
   shots: any = [];
 
   constructor(private activatedRoute: ActivatedRoute, private gameserv: GameService, private teamserv: TeamService,
@@ -29,6 +28,7 @@ export class GameViewComponent implements OnInit {
                 private shotServe: ShotService) { }
 
   ngOnInit(): void {
+    
     this.coachsignedin = this.coachAuth.signedIn;
     this.gameID = this.activatedRoute.snapshot.paramMap.get('gameid');
     console.log(this.gameID);
@@ -40,6 +40,8 @@ export class GameViewComponent implements OnInit {
         console.log(this.game)
       }
     });
+    
+    
 
   }
 
@@ -125,6 +127,7 @@ export class GameViewComponent implements OnInit {
     }
   }
   routeNewGame(){
+    this.removeShots();
     this.coachAuth.routeNav('/game/'+this.team[0].Team_ID.toString()+'/'+this.team[0].Name.toString())
   }
   routeLeader(){

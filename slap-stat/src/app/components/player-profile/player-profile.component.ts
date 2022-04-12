@@ -130,7 +130,7 @@ export class PlayerProfileComponent implements OnInit {
   }
 
   routeLeader(){
-    this.auth.routeNav('/leaderboard/'+this.editplayer.team_id.toString()+'/'+this.teamName)
+    this.auth.routeNav('/leaderboard/'+this.player.team_id.toString()+'/'+this.teamName)
   }
 
   routeHome(){
@@ -138,6 +138,6 @@ export class PlayerProfileComponent implements OnInit {
   }
 
   routeGame(){
-    this.auth.routeNav('/gamehub/'+this.editplayer.team_id.toString());
+    this.auth.routeNav('/gamehub/'+this.player.team_id.toString());
   }
 }
