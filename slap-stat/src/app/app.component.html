@@ -2,7 +2,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <!--  <span>HOME</span> -->
+    <div *ngIf="this.share.loggedin == false">
      <span><a href="/">Home</a></span>
+  </div>
      <span class="spacer"></span>
      <div *ngIf="this.share.loggedin == false">
      <a mat-button routerLink="/register-team">Register Team</a>
